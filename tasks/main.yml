@@ -1,9 +1,9 @@
 ---
 - name: Install required packages
   apt:
-    name: "{{ bbb_required_packages }}"
+    name: ["language-pack-en", "software-properties-common", "haveged", "curl", "python3-apt", "python3-dev", "python3-setuptools", "python3-pip", "python3-wheel", "openjdk-8-jdk"]
     update_cache: true
-    state: "{{ bbb_state }}"
+    state: present
 
 - name: set version of java to use
   file:
