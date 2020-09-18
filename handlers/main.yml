@@ -1,29 +1,39 @@
 ---
+- name: reload systemd
+  become: true
+  systemd:
+    daemon_reload: true
+
 - name: reload nginx
-  service:
+  become: true
+  systemd:
     name: nginx
     state: reloaded
 
 - name: restart nginx
-  service:
+  become: true
+  systemd:
     name: nginx
     state: restarted
 
 - name: restart bigbluebutton
-  command: bbb-conf --restart
   become: true
+  command: bbb-conf --restart
 
 - name: restart freeswitch
+  become: true
   systemd:
     name: freeswitch
     state: restarted
-  become: true
 
 - name: restart mongo
-  service:
+  become: true
+  systemd:
     name: mongod
     state: restarted
 
-- name: reload systemd
+- name: restart kurento
+  become: true
   systemd:
-    daemon_reload: true
+    name: kurento
+    state: restarted

@@ -1,0 +1,9 @@
+
+- name: overwrite default kurento service
+  become: true
+  template:
+    src: kurento.overwrite 
+    dest: /etc/systemd/system/kurento-media-server.service.d/override.conf
+  notify:
+    - reload systemd
+    - restart kurento
