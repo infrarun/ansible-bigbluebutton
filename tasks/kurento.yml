@@ -1,5 +1,10 @@
+- name: create kurento service overwrite directory
+  become: true
+  file:
+    state: directory
+    path: /etc/systemd/system/kurento-media-server.service.d/
 
-- name: overwrite default kurento service
+- name: deploy kurento service overwrite configuration
   become: true
   template:
     src: kurento.overwrite 
