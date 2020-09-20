@@ -1,0 +1,14 @@
+- name: create bbb-html5 service overwrite directory
+  become: true
+  file:
+    state: directory
+    path: /etc/systemd/system/bbb-html5.service.d/
+
+- name: deploy bbb-html5 service overwrite configuration
+  become: true
+  template:
+    src: bbb-html5.overwrite 
+    dest: /etc/systemd/system/bbb-html5.service.d/override.conf
+  notify:
+    - reload systemd
+    - restart bbb-html5

@@ -1,0 +1,15 @@
+[Service]
+Restart=always
+User=meteor
+Group=meteor
+
+Environment=
+Environment="ROOT_URL=http://127.0.0.1/html5client"
+Environment="MONGO_OPLOG_URL=mongodb://127.0.1.1/local"
+Environment="MONGO_URL=mongodb://127.0.1.1/meteor"
+Environment="NODE_ENV=$ENVIRONMENT_TYPE"
+Environment="PORT=3000"
+
+WorkingDirectory=/usr/share/meteor/bundle
+ExecStart=
+ExecStart=/usr/bin/node main.js
