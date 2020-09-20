@@ -35,5 +35,5 @@
 - name: restart kurento
   become: true
   systemd:
-    name: kurento
+    name: kurento-media-server
     state: restarted
