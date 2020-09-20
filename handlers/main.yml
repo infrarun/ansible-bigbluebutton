@@ -37,3 +37,9 @@
   systemd:
     name: kurento-media-server
     state: restarted
+
+- name: restart bbb-html5
+  become: true
+  systemd:
+    name: bbb-html5
+    state: restarted
