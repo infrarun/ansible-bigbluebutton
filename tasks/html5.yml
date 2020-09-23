@@ -1,8 +1,19 @@
+---
+
 - name: create bbb-html5 service overwrite directory
   become: true
   file:
     state: directory
     path: /etc/systemd/system/bbb-html5.service.d/
+
+- name: deploy bbb-html5 mongoDB prepare script
+  become: true
+  copy:
+    src: bbb-mongo-prepare.sh
+    dest: /usr/bin/bbb-mongo-prepare.sh
+    mode: 0755
+  notify:
+    - restart bbb-html5
 
 - name: deploy bbb-html5 service overwrite configuration
   become: true
