@@ -1,0 +1,17 @@
+---
+
+- name: set bbb-webrtc-sfu loglevel
+  become: true
+  lineinfile:
+    path: /usr/local/bigbluebutton/bbb-webrtc-sfu/config/default.yml
+    regexp: "^  level: "
+    line: "  level: warn"
+  notify: restart bbb-webrtc-sfu
+
+- name: unset bbb-webrtc-sfu logfile
+  become: true
+  lineinfile:
+    path: /usr/local/bigbluebutton/bbb-webrtc-sfu/config/default.yml
+    regexp: "^  filename: /var/log"
+    state: absent
+  notify: restart bbb-webrtc-sfu

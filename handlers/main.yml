@@ -43,3 +43,9 @@
   systemd:
     name: bbb-html5
     state: restarted
+
+- name: restart bbb-webrtc-sfu
+  become: true
+  systemd:
+    name: bbb-webrtc-sfu
+    state: restarted

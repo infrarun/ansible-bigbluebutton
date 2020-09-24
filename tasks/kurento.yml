@@ -1,13 +1,22 @@
-- name: create kurento service overwrite directory
+---
+
+- name: set kurento server to use HTTPS
+  notify: restart bigbluebutton
+  replace:
+    path: /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
+    regexp: 'ws://'
+    replace: 'wss://'
+
+- name: create kurento service override directory
   become: true
   file:
     state: directory
     path: /etc/systemd/system/kurento-media-server.service.d/
 
-- name: deploy kurento service overwrite configuration
+- name: deploy kurento service override configuration
   become: true
   template:
-    src: kurento.overwrite 
+    src: kurento.override 
     dest: /etc/systemd/system/kurento-media-server.service.d/override.conf
   notify:
     - reload systemd
