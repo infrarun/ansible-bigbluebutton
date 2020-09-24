@@ -3,7 +3,6 @@
   apt:
     name: ["language-pack-en", "software-properties-common", "openjdk-8-jdk"]
     update_cache: true
-    state: present
 
 - name: set version of java to use
   file:
@@ -18,11 +17,11 @@
 
 - name: install bbb and dependencies
   apt:
-    name: "{{ bbb_and_dependencies }}"
+    name: ["mongodb-org", "bbb-html5", "bbb-check", "bigbluebutton"]
 
 - name: install bbb-webhooks
   apt:
-    name: "{{ bbb_webhooks }}"
+    name: ["bbb-webhooks"]
   when: bbb_webhooks_enable
   notify: restart bigbluebutton
 

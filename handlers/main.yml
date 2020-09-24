@@ -49,3 +49,9 @@
   systemd:
     name: bbb-webrtc-sfu
     state: restarted
+
+- name: reload apparmor
+  become: true
+  systemd:
+    name: apparmor
+    state: reloaded

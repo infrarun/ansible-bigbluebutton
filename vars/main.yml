@@ -1,9 +1,0 @@
----
-bbb_and_dependencies:
-  - mongodb-org
-  - bbb-check
-  - bbb-html5
-  - bigbluebutton
-
-bbb_webhooks:
-  - bbb-webhooks
