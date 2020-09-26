@@ -28,3 +28,4 @@ bbb_dialplan_quality: "cdquality"
 bbb_dialplan_energy_level: 100
 bbb_dialplan_comfort_noise: 1400
 
+bbb_custom_presentation: ""

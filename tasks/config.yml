@@ -162,3 +162,10 @@
      dest: /etc/nginx/sites-available/bigbluebutton
   notify: reload nginx
 
+- name: Download PDF as default presentation
+  become: yes
+  get_url:
+    url: "{{ bbb_custom_presentation }}"
+    dest: /var/www/bigbluebutton-default/default.pdf
+  when: bbb_change_presentation | length
+  notify: reload nginx
