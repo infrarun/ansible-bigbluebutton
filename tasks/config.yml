@@ -115,7 +115,6 @@
     regexp: 'http://'
     replace: 'https://'
 
-
 - name: Read meteor
   slurp:
     path: /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
@@ -135,35 +134,8 @@
     content: '{{ meteor  | to_nice_yaml }}'
     dest: /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
 
-- name: configure freeswitch to use SSL
-  lineinfile:
-    path: /etc/bigbluebutton/nginx/sip.nginx
-    regexp: "proxy_pass"
-    line: "        proxy_pass https://{{ ansible_default_ipv4.address }}:7443;"
-  notify: reload nginx
-
-- name: create ssl folder for nginx
-  file:
-    path: /etc/nginx/ssl
-    state: directory
-
-- name: Copy Predefined DH group ffdhe2048
-  copy:
-    src: ffdhe4096.pem
-    dest: /etc/nginx/ssl/ffdhe4096.pem
-    owner: root
-    group: root
-    mode: '0644'
-  notify: reload nginx
-
-- name: copy bbb's nginx vhost
-  template:
-     src: bbb/bigbluebutton.j2
-     dest: /etc/nginx/sites-available/bigbluebutton
-  notify: reload nginx
-
 - name: Download PDF as default presentation
-  become: yes
+  become: true
   get_url:
     url: "{{ bbb_custom_presentation }}"
     dest: /var/www/bigbluebutton-default/default.pdf
