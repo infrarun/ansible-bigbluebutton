@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+	    <Pattern>%d{"yyyy-MM-dd'T'HH:mm:ss.SSSXXX"} %-5level %logger{35} - %msg%n</Pattern>
+	</layout>
+	</appender>
+	<logger name="akka" level="WARN" />
+	<logger name="io.lettuce" level="WARN" />
+	<logger name="org.bigbluebutton" level="WARN" />
+	<logger name="grails.app.controllers" level="WARN" />
+	<logger name="grails.app.services" level="WARN" />
+	<logger name="org.grails.web.servlet" level="WARN" />
+	<logger name="org.grails.web.pages" level="WARN" />
+	<logger name="org.grails.web.sitemesh" level="WARN" />
+	<logger name="org.grails.web.mapping.filter" level="WARN" />
+	<logger name="org.grails.web.mapping" level="WARN" />
+	<logger name="org.grails.commons" level="WARN" />
+	<logger name="org.springframework" level="WARN" />
+	<root level="WARN">
+	    <appender-ref ref="STDOUT" />
+	</root>
+</configuration>

@@ -9,7 +9,7 @@
 - name: deploy freeswitch service override configuration
   become: true
   template:
-    src: freeswitch.override 
+    src: freeswitch.override
     dest: /etc/systemd/system/freeswitch.service.d/override.conf
   notify:
     - reload systemd
@@ -29,13 +29,6 @@
     path: /opt/freeswitch/etc/freeswitch/autoload_configs/logfile.conf.xml
     state: absent
   notify: restart freeswitch
-
-#- name: FreeSWITCH dialplan quality
-#  become: true
-#  replace:
-#    backup: true
-#    path: /opt/freeswitch/conf/dialplan/default/bbb_conference.xml
-#    regexp: '<action application="conference" data="\$1@.*"\/>'
 
 - name: deploy conference config
   become: true
