@@ -15,13 +15,13 @@
     - reload systemd
     - restart freeswitch
 
-      #- name: create AppArmor rules
-      #  become: true
-      #  copy:
-      #    src: opt.freeswitch.bin.freeswitch
-      #    dest: /etc/apparmor.d/opt.freeswitch.bin.freeswitch
-      #    mode: 0600
-      #  notify: reload apparmor
+- name: create AppArmor rules
+  become: true
+  copy:
+    src: opt.freeswitch.bin.freeswitch
+    dest: /etc/apparmor.d/opt.freeswitch.bin.freeswitch
+    mode: 0600
+  notify: reload apparmor
 
 - name: delete freeswitch file logging config
   become: true
