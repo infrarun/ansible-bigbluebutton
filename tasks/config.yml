@@ -134,10 +134,10 @@
     content: '{{ meteor  | to_nice_yaml }}'
     dest: /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
 
-- name: Download PDF as default presentation
+- name: set default presentation
   become: true
-  get_url:
-    url: "{{ bbb_custom_presentation }}"
-    dest: /var/www/bigbluebutton-default/default.pdf
+  copy:
+    url: "files/{{ bbb_default_presentation }}"
+    dest: "/var/www/bigbluebutton-default/{{ bbb_default_presentation_name | default(bbb_default_presentation) }}"
   when: bbb_change_presentation | length
   notify: reload nginx
