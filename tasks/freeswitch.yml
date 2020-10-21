@@ -11,6 +11,7 @@
   template:
     src: freeswitch.override
     dest: /etc/systemd/system/freeswitch.service.d/override.conf
+    mode: 0644
   notify:
     - reload systemd
     - restart freeswitch
@@ -22,6 +23,15 @@
       #    dest: /etc/apparmor.d/opt.freeswitch.bin.freeswitch
       #    mode: 0600
       #  notify: reload apparmor
+      #
+
+- name: fix freeswitch systemd service permissions
+  become: true
+  file:
+    path: /lib/systemd/system/freeswitch.service
+    mode: 0644
+    owner: root
+    group: root
 
 - name: delete freeswitch file logging config
   become: true
