@@ -1,0 +1,9 @@
+---
+
+- name: fix freeswitch systemd service permissions
+  become: true
+  file:
+    path: /lib/systemd/system/freeswitch.service
+    mode: 0644
+    owner: root
+    group: root

@@ -19,12 +19,6 @@
   apt:
     name: ["mongodb-org", "bbb-html5", "bbb-check", "bigbluebutton"]
 
-- name: install bbb-webhooks
-  apt:
-    name: ["bbb-webhooks"]
-  when: bbb_webhooks_enable
-  notify: restart bigbluebutton
-
 - import_tasks: mongodb.yml
 
 - meta: flush_handlers
@@ -54,5 +48,6 @@
 - import_tasks: kurento.yml
 - import_tasks: bbb-html5.yml
 - import_tasks: bbb-web.yml
+- import_tasks: etherpad.yml
 - import_tasks: freeswitch.yml
 - import_tasks: webrtc-sfu.yml
