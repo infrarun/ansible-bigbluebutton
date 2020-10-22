@@ -137,7 +137,7 @@
 - name: set default presentation
   become: true
   copy:
-    url: "files/{{ bbb_default_presentation }}"
-    dest: "/var/www/bigbluebutton-default/{{ bbb_default_presentation_name | default(bbb_default_presentation) }}"
-  when: bbb_change_presentation | length
-  notify: reload nginx
+    src: "files/{{ bbb_custom_presentation }}"
+    dest: "/var/www/bigbluebutton-default/{{ bbb_custom_presentation_name | default(bbb_custom_presentation) }}"
+    mode: 0644
+  when: bbb_custom_presentation | length
