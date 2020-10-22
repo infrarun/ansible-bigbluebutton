@@ -5,6 +5,17 @@
   file:
     state: directory
     path: /etc/systemd/system/bbb-html5.service.d/
+    mode: 0755
+
+- name: deploy bbb-html5 service override configuration
+  become: true
+  template:
+    src: bbb-html5.override
+    dest: /etc/systemd/system/bbb-html5.service.d/override.conf
+    mode: 0644
+  notify:
+    - reload systemd
+    - restart bbb-html5
 
 - name: deploy bbb-html5 mongoDB prepare script
   become: true
@@ -13,13 +24,4 @@
     dest: /usr/bin/bbb-mongo-prepare.sh
     mode: 0755
   notify:
-    - restart bbb-html5
-
-- name: deploy bbb-html5 service override configuration
-  become: true
-  template:
-    src: bbb-html5.override
-    dest: /etc/systemd/system/bbb-html5.service.d/override.conf
-  notify:
-    - reload systemd
     - restart bbb-html5

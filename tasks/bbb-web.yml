@@ -5,28 +5,26 @@
   file:
     state: directory
     path: /etc/systemd/system/bbb-web.service.d/
-
-- name: configure bbb-web application settings
-  become: true
-  template:
-    src: application.conf
-    dest: /usr/share/bbb-web/WEB-INF/classes/application.conf
-  notify:
-    - restart bbb-web
-
-- name: configure bbb-web logging settings
-  become: true
-  template:
-    src: logback.xml
-    dest: /usr/share/bbb-web/WEB-INF/classes/logback.xml
-  notify:
-    - restart bbb-web
+    mode: 0755
 
 - name: deploy bbb-web service override configuration
   become: true
   template:
     src: bbb-web.override
     dest: /etc/systemd/system/bbb-web.service.d/override.conf
+    mode: 0644
   notify:
     - reload systemd
+    - restart bbb-web
+
+- name: configure bbb-web application settings
+  become: true
+  template:
+    src: '{{ item }}'
+    dest: '/usr/share/bbb-web/WEB-INF/classes/{{ item }}'
+    mode: 0644
+  loop:
+    - application.conf
+    - logback.xml
+  notify:
     - restart bbb-web
