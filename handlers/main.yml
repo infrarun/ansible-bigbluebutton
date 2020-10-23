@@ -61,3 +61,7 @@
   systemd:
     name: apparmor
     state: reloaded
+
+- name: update grub
+  become: true
+  command: update-grub
