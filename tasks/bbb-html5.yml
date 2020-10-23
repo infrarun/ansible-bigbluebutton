@@ -25,11 +25,3 @@
     mode: 0755
   notify:
     - restart bbb-html5
-
-- name: fix bbb-html5 service permissions
-  become: true
-  file:
-    path: /lib/systemd/system/bbb-html5.service
-    mode: 0644
-    owner: root
-    group: root

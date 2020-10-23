@@ -1,0 +1,19 @@
+---
+
+# could be done elsewhere, but red5 is the owner, so we fix it here. YOLO
+- name: fix service directory permissions
+  become: true
+  file:
+    path: /usr/lib/systemd/system
+    state: directory
+    recurse: true
+    owner: root
+    group: root
+    mode: u=rwX,g=rX,o=rX
+
+- name: disable red5 service
+  become: true
+  systemd:
+    name: red5.service
+    state: stopped
+    enabled: false

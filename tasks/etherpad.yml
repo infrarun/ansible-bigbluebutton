@@ -1,9 +1,0 @@
----
-
-- name: fix etherpad service permissions
-  become: true
-  file:
-    path: /lib/systemd/system/etherpad.service
-    mode: 0644
-    owner: root
-    group: root
