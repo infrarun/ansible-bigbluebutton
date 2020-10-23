@@ -7,10 +7,9 @@
     state: absent
 
 - name: disable Transparent Huge Pages flag via grub
-  copy:
-    content: 'GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT transparent_hugepage=never"'
-    dest: /usr/default/grub.d/99-disable-thp
-    owner: root
-    group: root
-    mode: 0644
+  lineinfile:
+    path: /etc/default/grub
+    regex: '^GRUB_CMDLINE_LINUX_DEFAULT="(((?!transparent_hugepage=never).)*)"$'
+    line: 'GRUB_CMDLINE_LINUX_DEFAULT="\1 transparent_hugepage=never"'
+    backrefs: yes
   notify: update grub
