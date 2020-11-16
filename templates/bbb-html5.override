@@ -1,7 +1,5 @@
 [Service]
 Restart=always
-User=meteor
-Group=meteor
 
 Environment="ROOT_URL=http://127.0.0.1/html5client"
 Environment="MONGO_OPLOG_URL=mongodb://127.0.1.1/local"

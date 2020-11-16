@@ -51,3 +51,4 @@
 - import_tasks: freeswitch.yml
 - import_tasks: webrtc-sfu.yml
 - import_tasks: thp.yml
+- import_tasks: red5.yml

@@ -31,3 +31,4 @@ bbb_custom_presentation: "default.pdf"
 # set this to the name the default presentation on the host should have.
 # if its not default.pdf moderators are able to delete the default presentation. Thats sometimes helpful and works fine.
 bbb_custom_presentation_name: "default.pdf" 
+bbb_api_key: ""
