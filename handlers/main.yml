@@ -50,6 +50,12 @@
     name: bbb-web
     state: restarted
 
+- name: reload bbb-web
+  become: true
+  systemd:
+    name: bbb-web
+    state: reloaded
+
 - name: restart bbb-webrtc-sfu
   become: true
   systemd:
