@@ -1,0 +1,27 @@
+---
+
+- name: create sip profile
+  become: true
+  template:
+    src: sip_profile.xml
+    dest: /opt/freeswitch/etc/freeswitch/sip_profiles/external/dialin.xml
+    group: freeswitch
+    mode: 0640
+  notify: restart freeswitch
+
+- name: create dialplan
+  become: true
+  template:
+    src: dialplan.xml
+    dest: /opt/freeswitch/etc/freeswitch/dialplan/public/dialin.xml
+    group: freeswitch
+    mode: 0640
+  notify: restart freeswitch
+
+- name: set bbb dialin number
+  become: true
+  lineinfile:
+    path: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
+    regexp: '^defaultDialAccessNumber='
+    line: 'defaultDialAccessNumber={{ bbb_sip_account.pretty }}'
+  notify: reload bbb-web
