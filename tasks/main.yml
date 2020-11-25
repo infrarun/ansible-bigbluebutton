@@ -52,3 +52,6 @@
 - import_tasks: webrtc-sfu.yml
 - import_tasks: thp.yml
 - import_tasks: red5.yml
+
+- import_tasks: dialin.yml
+  when: bbb_sip_account | bool
