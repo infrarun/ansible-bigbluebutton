@@ -1,4 +1,4 @@
-# Last Modified: Thu Sep 24 16:34:38 2020
+# Last Modified: Wed Nov 25 12:51:08 2020
 #include <tunables/global>
 
 /opt/freeswitch/bin/freeswitch {
@@ -11,6 +11,7 @@
   /opt/freeswitch/bin/freeswitch mr,
   /opt/freeswitch/etc/** r,
   /opt/freeswitch/lib/** mr,
+  /opt/freeswitch/share/freeswitch/sounds/**.wav r,
   /opt/freeswitch/var/lib/freeswitch/db/* rwk,
   /opt/freeswitch/var/lib/freeswitch/images/* r,
   /opt/freeswitch/var/log/freeswitch/* rw,

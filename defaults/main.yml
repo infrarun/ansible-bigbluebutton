@@ -32,3 +32,5 @@ bbb_custom_presentation: "default.pdf"
 # if its not default.pdf moderators are able to delete the default presentation. Thats sometimes helpful and works fine.
 bbb_custom_presentation_name: "default.pdf" 
 bbb_api_key: ""
+
+bbb_sip_account: null
