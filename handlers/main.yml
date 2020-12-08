@@ -62,6 +62,12 @@
     name: bbb-webrtc-sfu
     state: restarted
 
+- name: restart bbb-apps-akka
+  become: true
+  systemd:
+    name: bbb-apps-akka
+    state: restarted
+
 - name: reload apparmor
   become: true
   systemd:

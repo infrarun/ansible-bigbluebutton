@@ -27,6 +27,16 @@
   notify:
     - reload bbb-web
 
+- name: set bbb api secret
+  become: true
+  lineinfile:
+    path: /usr/share/bbb-apps-akka/conf/application.conf
+    regexp: '^  sharedSecret='
+    line: '  sharedSecret="{{ bbb_api_key }}"'
+  when: bbb_api_key | length > 20
+  notify:
+    - restart bbb-apps-akka
+
 - name: configure bbb-web application settings
   become: true
   template:
