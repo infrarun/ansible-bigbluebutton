@@ -25,3 +25,11 @@
     regexp: '^defaultDialAccessNumber='
     line: 'defaultDialAccessNumber={{ bbb_sip_account.pretty }}'
   notify: reload bbb-web
+
+- name: show dialin number in welcome message
+  become: true
+  lineinfile:
+    path: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
+    regexp: '^defaultWelcomeMessageFooter='
+    line: 'defaultWelcomeMessageFooter=<br><br>To join this meeting by phone, dial:<br>  %%DIALNUM%%<br>Then enter %%CONFNUM%% as the conference PIN number.'
+  notify: reload bbb-web
