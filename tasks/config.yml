@@ -74,6 +74,14 @@
   when: bbb_secret is defined
   notify: restart bigbluebutton
 
+- name: set maxInactivityTimeoutMinutes
+  lineinfile:
+    path: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
+    regexp: '^maxInactivityTimeoutMinutes'
+    line: 'maxInactivityTimeoutMinutes={{ bbb_meeting_inactivity_timeout_minutes }}'
+  when: bbb_meeting_inactivity_timeout_minutes is defined
+  notify: restart bigbluebutton
+
 - name: set red5 to use HTTPS 1/2
   lineinfile:
     path: /usr/share/red5/webapps/screenshare/WEB-INF/screenshare.properties
