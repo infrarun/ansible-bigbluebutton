@@ -116,6 +116,20 @@
     regexp: 'http://'
     replace: 'https://'
 
+- name: ensure meteor runs in production mode
+  notify: restart bigbluebutton
+  lineinfile:
+    path: /usr/share/meteor/bundle/systemd_start.sh
+    regexp: '^ENVIRONMENT_TYPE=development'
+    line: 'ENVIRONMENT_TYPE=production'
+
+- name: give nodejs more memory
+  notify: restart bigbluebutton
+  lineinfile:
+    path: /usr/share/meteor/bundle/systemd_start.sh
+    regexp: '^PORT=3000 /usr/share/\$NODE_VERSION/bin/node'
+    line: 'PORT=3000 /usr/share/$NODE_VERSION/bin/node --max-old-space-size=4096 --max_semi_space_size=128 main.js'
+
 - name: set note server to use HTTPS
   notify: restart bigbluebutton
   replace:
@@ -149,3 +163,11 @@
     dest: "/var/www/bigbluebutton-default/{{ bbb_custom_presentation_name | default(bbb_custom_presentation) }}"
     mode: 0644
   when: bbb_custom_presentation | length
+
+# WARNING: This may turn into a NOP in future releases!
+- name: reduce cursor update rate
+  replace:
+    path: /usr/share/meteor/bundle/programs/web.browser/7ab5ebd28d0d066903f9363ec402d0fee931a588.js
+    regexp: '-1,l=(\d+)'
+    replace: '-1,l=250'
+  notify: restart bigbluebutton
