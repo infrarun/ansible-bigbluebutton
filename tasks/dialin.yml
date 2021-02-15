@@ -5,7 +5,8 @@
   template:
     src: sip_profile.xml
     dest: /opt/freeswitch/etc/freeswitch/sip_profiles/external/dialin.xml
-    group: freeswitch
+    owner: freeswitch
+    group: daemon
     mode: 0640
   notify: restart freeswitch
 
@@ -14,7 +15,8 @@
   template:
     src: dialplan.xml
     dest: /opt/freeswitch/etc/freeswitch/dialplan/public/dialin.xml
-    group: freeswitch
+    owner: freeswitch
+    group: daemon
     mode: 0640
   notify: restart freeswitch
 
