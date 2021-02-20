@@ -1,31 +1,17 @@
 ---
 
-- name: create sip profile
-  become: true
-  template:
-    src: sip_profile.xml
-    dest: /opt/freeswitch/etc/freeswitch/sip_profiles/external/dialin.xml
-    owner: freeswitch
-    group: daemon
-    mode: 0640
-  notify: restart freeswitch
+- include: dialin_standalone.yml
+  when: bbb_sipgw is not tdefined
 
-- name: create dialplan
-  become: true
-  template:
-    src: dialplan.xml
-    dest: /opt/freeswitch/etc/freeswitch/dialplan/public/dialin.xml
-    owner: freeswitch
-    group: daemon
-    mode: 0640
-  notify: restart freeswitch
+- include: dialin_sipgw.yml
+  when: bbb_sipgw is defined
 
 - name: set bbb dialin number
   become: true
   lineinfile:
     path: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
     regexp: '^defaultDialAccessNumber='
-    line: 'defaultDialAccessNumber={{ bbb_sip_account.pretty }}'
+    line: 'defaultDialAccessNumber={{ bbb_sip_pretty_number }}'
   notify: reload bbb-web
 
 - name: show dialin number in welcome message
@@ -33,5 +19,5 @@
   lineinfile:
     path: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
     regexp: '^defaultWelcomeMessageFooter='
-    line: 'defaultWelcomeMessageFooter=<br><br>To join this meeting by phone, dial:<br>  %%DIALNUM%%<br>Then enter %%CONFNUM%% as the conference PIN number.'
+    line: 'defaultWelcomeMessageFooter=<br>To join this meeting by phone, dial:<br>  %%DIALNUM%%<br>Then enter %%CONFNUM%% as the conference PIN number.'
   notify: reload bbb-web

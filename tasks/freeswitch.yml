@@ -49,4 +49,10 @@
     group: daemon
   notify: restart freeswitch
 
+- name: fix fs_clibbb to accept additional parameters
+  become: true
+  lineinfile:
+    path: /usr/local/bin/fs_clibbb
+    regexp: "^/opt/freeswitch/bin/fs_cli"
+    line: "/opt/freeswitch/bin/fs_cli -p $(xmlstarlet sel -t -m 'configuration/settings/param[@name=\"password\"]' -v @value /opt/freeswitch/etc/freeswitch/autoload_configs/event_socket.conf.xml) $@" 
 

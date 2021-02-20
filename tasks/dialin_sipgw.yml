@@ -1,0 +1,31 @@
+---
+- name: update ACL to accept calls from SIP Gateway
+  become: true
+  template:
+    src: sipgw/acl.conf.xml
+    dest: /opt/freeswitch/etc/freeswitch/autoload_configs/acl.conf.xml
+    owner: freeswitch
+    group: daemon
+    mode: 0644
+  notify: reload freeswitch acls
+
+- name: create sip profile
+  become: true
+  template:
+    src: sipgw/profile.xml
+    dest: /opt/freeswitch/etc/freeswitch/sip_profiles/dialin.xml
+    owner: freeswitch
+    group: daemon
+    mode: 0640
+  notify: restart sofia dialin profile
+
+- name: create dialplan
+  become: true
+  template:
+    src: sipgw/dialplan.xml
+    dest: /opt/freeswitch/etc/freeswitch/dialplan/from-dialin.xml
+    owner: freeswitch
+    group: daemon
+    mode: 0640
+  notify: reload freeswitch xml
+

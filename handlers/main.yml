@@ -26,6 +26,21 @@
     name: freeswitch
     state: restarted
 
+- name: reload freeswitch xml
+  become: true
+  command:
+    cmd: "fs_clibbb -x 'reloadxml'"
+
+- name: reload freeswitch acls
+  become: true
+  command:
+    cmd: "fs_clibbb -x 'reloadacl'"
+
+- name: restart sofial dialin profile
+  become: true
+  command:
+    cmd: "fs_clibbb -x 'sofia profile dialin restart'"
+
 - name: restart mongo
   become: true
   systemd:
