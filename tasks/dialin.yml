@@ -19,5 +19,6 @@
   lineinfile:
     path: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
     regexp: '^defaultWelcomeMessageFooter='
-    line: 'defaultWelcomeMessageFooter=<br>To join this meeting by phone, dial:<br>  %%DIALNUM%%<br>Then enter %%CONFNUM%% as the conference PIN number.'
+    #line: 'defaultWelcomeMessageFooter=<br>To join this meeting by phone, dial:<br>  %%DIALNUM%%<br>Then enter %%CONFNUM%% as the conference PIN number.'
+    line: 'defaultWelcomeMessageFooter=<br>Um dieser Konferenz per Telefon beizutreten, wählen Sie<br>  %%DIALNUM%%<br>und geben %%CONFNUM%% als Konferenz-PIN ein.'
   notify: reload bbb-web
