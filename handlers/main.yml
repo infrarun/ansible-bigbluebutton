@@ -36,10 +36,10 @@
   command:
     cmd: "fs_clibbb -x 'reloadacl'"
 
-- name: restart sofial dialin profile
+- name: restart sofia dialin profile
   become: true
   command:
-    cmd: "fs_clibbb -x 'sofia profile dialin restart'"
+    cmd: "fs_clibbb -x 'sofia profile dialin start'"
 
 - name: restart mongo
   become: true
