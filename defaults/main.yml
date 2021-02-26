@@ -33,3 +33,4 @@ bbb_custom_presentation: "default.pdf"
 bbb_custom_presentation_name: "default.pdf" 
 bbb_api_key: ""
 
+bbb_sip_extension: "{{ ansible_hostname }}"
