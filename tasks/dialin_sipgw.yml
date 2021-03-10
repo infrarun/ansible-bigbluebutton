@@ -9,6 +9,20 @@
     mode: 0644
   notify: reload freeswitch acls
 
+- name: copy announcements
+  become: true
+  copy:
+    src: samples/you-are-muted.flac
+    dest: /opt/freeswitch/share/freeswitch/sounds/you-are-muted.flac
+    mode: 644
+
+- name: create conferenceMutedOnStart helper script
+  become: true
+  template:
+    src: sipgw/conferenceMutedOnStart
+    dest: /usr/local/bin/conferenceMutedOnStart
+    mode: 0755
+
 - name: create sip profile
   become: true
   template:
