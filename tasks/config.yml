@@ -1,101 +1,15 @@
 ---
-- name: register current bbb properties
-  slurp:
-    src: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
-  register: properties
-
-- name: set bbb hostname
-  command: "bbb-conf --setip {{ bbb_hostname }}"
+- name: Update /etc/bigbluebutton/bbb-web.properties
   become: true
-  when: properties['content'] | b64decode | regex_search(bbb_hostname, multiline=True, ignorecase=True) != bbb_hostname
+  template:
+    src: bbb-web.properties
+    dest: /etc/bigbluebutton/bbb-web.properties
+    owner: root
+    group: root
+    mode: '0644'
   notify: restart bigbluebutton
 
-- name: enable join via html5
-  lineinfile:
-    path: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
-    regexp: '^attendeesJoinViaHTML5Client'
-    line: 'attendeesJoinViaHTML5Client=true'
-  notify: restart bigbluebutton
-
-- name: enable mod join via html5
-  lineinfile:
-    path: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
-    regexp: '^moderatorsJoinViaHTML5Client'
-    line: 'moderatorsJoinViaHTML5Client=true'
-  notify: restart bigbluebutton
-
-- name: set bbb to use HTTPS
-  lineinfile:
-    path: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
-    regexp: '^bigbluebutton.web.serverURL'
-    line: 'bigbluebutton.web.serverURL=https://{{ bbb_hostname }}'
-  notify: restart bigbluebutton
-
-- name: set recording default
-  lineinfile:
-    path: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
-    regexp: '^disableRecordingDefault'
-    line: 'disableRecordingDefault={{ bbb_disable_recordings | ternary("true", "false") }}'
-  notify: restart bigbluebutton
-
-- name: ensure recording auto start is disabled
-  lineinfile:
-    path: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
-    regexp: '^autoStartRecording'
-    line: 'autoStartRecording=false'
-  notify: restart bigbluebutton
-
-- name: allow/disable users to start recordings
-  lineinfile:
-    path: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
-    regexp: '^allowStartStopRecording'
-    line: 'allowStartStopRecording={{ bbb_disable_recordings | ternary("false", "true") }}'
-  notify: restart bigbluebutton
-
-- name: set muteOnStart
-  lineinfile:
-    path: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
-    regexp: '^muteOnStart'
-    line: 'muteOnStart={{ bbb_mute_on_start | ternary("false", "true") }}'
-  notify: restart bigbluebutton
-
-- name: set appLogLevel
-  lineinfile:
-    path: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
-    regexp: '^appLogLevel'
-    line: 'appLogLevel={{ bbb_app_log_level }}'
-  notify: restart bigbluebutton
-
-- name: set securitySalt
-  lineinfile:
-    path: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
-    regexp: '^securitySalt'
-    line: 'securitySalt={{ bbb_secret }}'
-  when: bbb_secret is defined
-  notify: restart bigbluebutton
-
-- name: set maxInactivityTimeoutMinutes
-  lineinfile:
-    path: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
-    regexp: '^maxInactivityTimeoutMinutes'
-    line: 'maxInactivityTimeoutMinutes={{ bbb_meeting_inactivity_timeout_minutes }}'
-  when: bbb_meeting_inactivity_timeout_minutes is defined
-  notify: restart bigbluebutton
-
-- name: set red5 to use HTTPS 1/2
-  lineinfile:
-    path: /usr/share/red5/webapps/screenshare/WEB-INF/screenshare.properties
-    regexp: '^jnlpUrl'
-    line: 'jnlpUrl=https://{{ bbb_hostname }}/screenshare'
-  notify: restart bigbluebutton
-
-- name: set red5 to use HTTPS 2/2
-  lineinfile:
-    path: /usr/share/red5/webapps/screenshare/WEB-INF/screenshare.properties
-    regexp: '^jnlpFile'
-    line: 'jnlpFile=https://{{ bbb_hostname }}/screenshare/screenshare.jnlp'
-  notify: restart bigbluebutton
-
+### this will/really should move to /etc until 2.3 final
 - name: copy TURN config file
   template:
     src: turn-stun-servers.xml
@@ -108,20 +22,6 @@
     regexp: "playback_protocol"
     line: "playback_protocol: https"
   notify: restart bigbluebutton
-
-- name: set BigBlueButton client to load components via HTTPS
-  notify: restart bigbluebutton
-  replace:
-    path: /var/www/bigbluebutton/client/conf/config.xml
-    regexp: 'http://'
-    replace: 'https://'
-
-- name: ensure meteor runs in production mode
-  notify: restart bigbluebutton
-  lineinfile:
-    path: /usr/share/meteor/bundle/systemd_start.sh
-    regexp: '^ENVIRONMENT_TYPE=development'
-    line: 'ENVIRONMENT_TYPE=production'
 
 - name: set note server to use HTTPS
   notify: restart bigbluebutton

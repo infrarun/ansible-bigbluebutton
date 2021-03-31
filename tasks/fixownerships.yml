@@ -1,6 +1,6 @@
 ---
 
-# could be done elsewhere, but red5 is the owner, so we fix it here. YOLO
+# https://github.com/bigbluebutton/bigbluebutton/issues/11752
 - name: fix service directory permissions
   become: true
   file:
@@ -10,10 +10,3 @@
     owner: root
     group: root
     mode: u=rwX,g=rX,o=rX
-
-- name: disable red5 service
-  become: true
-  systemd:
-    name: red5.service
-    state: stopped
-    enabled: false
