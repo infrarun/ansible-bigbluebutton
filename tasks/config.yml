@@ -4,16 +4,41 @@
   template:
     src: bbb-web.properties
     dest: /etc/bigbluebutton/bbb-web.properties
-    owner: root
+    owner: bigbluebutton
     group: root
-    mode: '0644'
+    mode: '0600'
   notify: restart bigbluebutton
 
-### this will/really should move to /etc until 2.3 final
-- name: copy TURN config file
+- name: Update /etc/bigbluebutton akka configs
+  become: true
+  template:
+    src: "{{ item }}"
+    dest: "/etc/bigbluebutton/{{ item }}"
+    owner: bigbluebutton
+    group: root
+    mode: '0600'
+  loop:
+    - bbb-apps-akka.conf
+    - bbb-fsesl-akka.conf
+  notify: restart bigbluebutton
+
+- name: Update /etc/bigbluebutton/bbb-apps-akka.conf
+  become: true
+  template:
+    src: bbb-apps-akka.conf
+    dest: /etc/bigbluebutton/bbb-apps-akka.conf
+    owner: bigbluebutton
+    group: root
+    mode: '0600'
+  notify: restart bigbluebutton
+
+- name: Update /etc/bigbluebutton/turn-stun-servers.xml
   template:
     src: turn-stun-servers.xml
-    dest: /usr/share/bbb-web/WEB-INF/classes/spring/turn-stun-servers.xml
+    dest: /etc/bigbluebutton/turn-stun-servers.xml
+    owner: bigbluebutton
+    group: root
+    mode: '0600'
   notify: restart bigbluebutton
 
 - name: serve recordings via https
@@ -22,32 +47,6 @@
     regexp: "playback_protocol"
     line: "playback_protocol: https"
   notify: restart bigbluebutton
-
-- name: set note server to use HTTPS
-  notify: restart bigbluebutton
-  replace:
-    path: /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
-    regexp: 'http://'
-    replace: 'https://'
-
-- name: Read meteor
-  slurp:
-    path: /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
-  register: r_meteor
-
-- name: extract config of meteor
-  set_fact:
-    meteor: "{{ r_meteor['content'] | b64decode | from_yaml }}"
-
-- name: combine meteor config
-  set_fact:
-    meteor: "{{ meteor | combine(bbb_meteor, recursive=true) }}"
-
-- name: write back new meteor config
-  notify: restart bigbluebutton
-  copy:
-    content: '{{ meteor  | to_nice_yaml }}'
-    dest: /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
 
 - name: set default presentation
   become: true

@@ -1,13 +1,4 @@
 ---
-
-- name: configure freeswitch to use SSL
-  become: true
-  lineinfile:
-    path: /etc/bigbluebutton/nginx/sip.nginx
-    regexp: "proxy_pass"
-    line: "        proxy_pass https://{{ ansible_default_ipv4.address }}:7443;"
-  notify: reload nginx
-
 - name: create ssl folder for nginx
   become: true
   file:

@@ -17,26 +17,6 @@
     - reload systemd
     - restart bbb-web
 
-- name: set bbb api secret
-  become: true
-  lineinfile:
-    path: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
-    regexp: '^securitySalt='
-    line: 'securitySalt={{ bbb_api_key }}'
-  when: bbb_api_key | length > 20
-  notify:
-    - reload bbb-web
-
-- name: set bbb api secret
-  become: true
-  lineinfile:
-    path: /usr/share/bbb-apps-akka/conf/application.conf
-    regexp: '^  sharedSecret='
-    line: '  sharedSecret="{{ bbb_api_key }}"'
-  when: bbb_api_key | length > 20
-  notify:
-    - restart bbb-apps-akka
-
 - name: configure bbb-web application settings
   become: true
   template:
@@ -44,7 +24,13 @@
     dest: '/usr/share/bbb-web/WEB-INF/classes/{{ item }}'
     mode: 0644
   loop:
-    - application.conf
     - logback.xml
   notify:
     - restart bbb-web
+
+- name: write custom meteor config
+  copy:
+    content: '{{ bbb_meteor | to_nice_yaml }}'
+    dest: /etc/bigbluebutton/bbb-html5.yml
+  notify:
+    - restart bbb-html5
