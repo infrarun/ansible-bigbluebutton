@@ -6,6 +6,11 @@
     id: 770C4267C5E63474D171B60937B5DD5EFAB46452
     state: present
 
+- name: add mongodb apt key
+  apt_key:
+    url: "https://www.mongodb.org/static/pgp/server-{{ bbb_mongodb_version | default('4.2') }}.asc"
+    state: present
+
 - name: add multiverse apt repositories
   apt_repository:
     repo: "{{ item }}"
@@ -17,11 +22,6 @@
     - "deb-src http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release | lower }}-updates multiverse"
     - "deb http://repo.mongodb.org/apt/ubuntu/ {{ ansible_distribution_release | lower }}/mongodb-org/{{ bbb_mongodb_version }} multiverse"
     - "deb https://ubuntu.bigbluebutton.org/bionic-230-dev/ bigbluebutton-bionic main"
-
-- name: add mongodb apt key
-  apt_key:
-    url: "https://www.mongodb.org/static/pgp/server-{{ bbb_mongodb_version | default('4.2') }}.asc"
-    state: present
 
 - name: add Bionic dependency apt repositories
   apt_repository:
