@@ -100,6 +100,8 @@ bbb_meteor:
       bufferChatInsertsMs: 100
       typingIndicator:
         enabled: false
+    media:
+      sipjsHackViaWs: true
     kurento:
       wsUrl: "wss://{{ inventory_hostname }}/bbb-webrtc-sfu/"
       cameraProfiles:
