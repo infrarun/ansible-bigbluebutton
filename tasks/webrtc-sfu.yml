@@ -16,7 +16,7 @@
 
 - name: write custom webrtc-sfu config
   copy:
-    content: '{{ bbb_webrtc_sfu_singlekurento | to_nice_yaml }}'
+    content: '{{ (bbb_webrtc_sfu_multikurento if bbb_multikurento else bbb_webrtc_sfu_singlekurento) | to_nice_yaml }}'
     dest: /etc/bigbluebutton/bbb-webrtc-sfu/production.yml
   notify:
     - restart bbb-webrtc-sfu

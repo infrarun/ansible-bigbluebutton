@@ -1,5 +1,4 @@
 ---
-
 - name: create kurento service override directory
   become: true
   file:
@@ -15,10 +14,3 @@
     - reload systemd
     - restart kurento
 
-# This needs to move into the settings template
-- name: set kurento server to use HTTPS
-  notify: restart bigbluebutton
-  replace:
-    path: /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
-    regexp: 'ws://'
-    replace: 'wss://'
