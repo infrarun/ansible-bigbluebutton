@@ -14,6 +14,12 @@
     - reload systemd
     - restart bbb-webrtc-sfu
 
+- name: create /etc/bigbluebutton/bbb-webrtc-sfu
+  become: true
+  file:
+    state: directory
+    path: /etc/bigbluebutton/bbb-webrtc-sfu
+
 - name: write custom webrtc-sfu config
   copy:
     content: '{{ (bbb_webrtc_sfu_multikurento if bbb_multikurento else bbb_webrtc_sfu_singlekurento) | to_nice_yaml }}'
