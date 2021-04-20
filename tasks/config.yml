@@ -22,16 +22,6 @@
     - bbb-fsesl-akka.conf
   notify: restart bigbluebutton
 
-- name: Update /etc/bigbluebutton/bbb-apps-akka.conf
-  become: true
-  template:
-    src: bbb-apps-akka.conf
-    dest: /etc/bigbluebutton/bbb-apps-akka.conf
-    owner: bigbluebutton
-    group: root
-    mode: '0600'
-  notify: restart bigbluebutton
-
 - name: Update /etc/bigbluebutton/turn-stun-servers.xml
   template:
     src: turn-stun-servers.xml
