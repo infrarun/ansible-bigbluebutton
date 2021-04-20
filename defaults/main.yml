@@ -104,7 +104,7 @@ bbb_meteor:
     media:
       sipjsHackViaWs: true
     kurento:
-      wsUrl: "wss://{{ inventory_hostname }}/bbb-webrtc-sfu/"
+      wsUrl: "wss://{{ inventory_hostname }}/bbb-webrtc-sfu"
       cameraProfiles:
       - id: low-u30
         name: low-u30
