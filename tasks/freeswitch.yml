@@ -56,7 +56,7 @@
 
 - name: configure different mute sound
   copy:
-    src: sounds/{{ item }}/conf-muted.wav
+    src: sounds/muteunmute/{{ item }}/conf-muted.wav
     dest: /opt/freeswitch/share/freeswitch/sounds/en/us/callie/conference/{{ item }}/
     owner: freeswitch
     group: daemon
@@ -69,7 +69,7 @@
 
 - name: configure different unmute sound
   copy:
-    src: sounds/{{ item }}/conf-unmuted.wav
+    src: sounds/muteunmute/{{ item }}/conf-unmuted.wav
     dest: /opt/freeswitch/share/freeswitch/sounds/en/us/callie/conference/{{ item }}/
     owner: freeswitch
     group: daemon

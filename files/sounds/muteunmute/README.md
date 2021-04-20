@@ -2,7 +2,7 @@
 
 Alternative sounds for BigBlueButton to play when the mute and unmute buttons are used.
 
-Find sources and more details in the upstream repository at https://gitlab.senfcall.de/senfcall-public/mute-and-unmute-sounds.
+Find sources and more details in the [upstream repository](https://gitlab.senfcall.de/senfcall-public/mute-and-unmute-sounds).
 
 ## License Information
  
