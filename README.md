@@ -41,7 +41,9 @@ Ansible role for a bigbluebutton installation (following the documentation on ht
 | `bbb_dialplan_comfort_noise` | Set comfort noise of dailplan for FreeSWITCH | `1400` | only for selected profile `bbb_dialplan_quality`
 | `bbb_webhooks_enable` | install bbb-webhooks | `no` |
 | `bbb_meeting_inactivity_timeout_minutes` | set the default timeout in minutes | `10` |
-| `bbb_freeswitch_socket_password' | set password for freeswitch |  | Can be generated with `pwgen -s 16 1`
+| `bbb_freeswitch_socket_password` | set password for freeswitch |  | Can be generated with `pwgen -s 16 1`
+| `bbb_html5_backend_processes` | amount of html5 backend processes | 1 | min = 1; max = 4
+| `bbb_html5_frontend_processes` | amount of html5 frontend processes | 1 | min = 1; max = 4; or 0 to let the same process do front- and backend (2.2 behavior)
 
 ### Extra options for Greenlight
 The Web-Frontend has some extra configuration options, listed below:

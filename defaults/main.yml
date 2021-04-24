@@ -185,6 +185,8 @@ bbb_meteor:
           moderator: 8
           viewer: 8
 
+bbb_html5_backend_processes: 1
+bbb_html5_frontend_processes: 1
 
 bbb_dialplan_quality: "cdquality"
 bbb_dialplan_energy_level: 100
