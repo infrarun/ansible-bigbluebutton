@@ -50,8 +50,13 @@
 - name: restart kurento
   become: true
   systemd:
-    name: kurento-media-server
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - kurento-media-server
+    - kurento-media-server.target
+  ignore_errors: true
+
 
 - name: stop kurento
   become: true
