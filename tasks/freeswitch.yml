@@ -85,30 +85,20 @@
 
 - meta: flush_handlers
 
-- name: configure different mute sound
+- name: configure different mute/unmute sounds
   become: true
   copy:
-    src: sounds/muteunmute/{{ item }}/conf-muted.wav
-    dest: /opt/freeswitch/share/freeswitch/sounds/en/us/callie/conference/{{ item }}/
+    src: "sounds/muteunmute/{{ item }}"
+    dest: "/opt/freeswitch/share/freeswitch/sounds/en/us/callie/conference/{{ item }}/"
     mode: 0644
     owner: root
     group: root
   with_items:
-    - 48000
-    - 32000
-    - 16000
-    - 8000
-
-- name: configure different unmute sound
-  become: true
-  copy:
-    src: sounds/muteunmute/{{ item }}/conf-unmuted.wav
-    dest: /opt/freeswitch/share/freeswitch/sounds/en/us/callie/conference/{{ item }}/
-    mode: 0644
-    owner: root
-    group: root
-  with_items:
-    - 48000
-    - 32000
-    - 16000
-    - 8000
+    - 48000/conf-muted.wav
+    - 32000/conf-muted.wav
+    - 16000/conf-muted.wav
+    - 8000/conf-muted.wav
+    - 48000/conf-unmuted.wav
+    - 32000/conf-unmuted.wav
+    - 16000/conf-unmuted.wav
+    - 8000/conf-unmuted.wav
