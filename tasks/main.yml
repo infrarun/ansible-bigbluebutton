@@ -74,10 +74,7 @@
 
 - import_tasks: config.yml
 - import_tasks: nginx.yml
-- import_tasks: multikurento.yml
-  when: bbb_multikurento
-- import_tasks: singlekurento.yml
-  when: not bbb_multikurento
+- import_tasks: kurento.yml
 - import_tasks: bbb-web.yml
 - import_tasks: freeswitch.yml
 - import_tasks: webrtc-sfu.yml

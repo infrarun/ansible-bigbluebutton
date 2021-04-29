@@ -23,7 +23,6 @@ bbb_freeswitch_ipv6: true
 bbb_freeswitch_external_ip: "stun:{{ (bbb_stun_servers | first).server }}"
 bbb_system_locale: en_US.UTF-8
 bbb_mongodb_version: 4.2
-bbb_multikurento: true
 
 bbb_webrtc_sfu_singlekurento:
   balancing-strategy: ROUND_ROBIN
