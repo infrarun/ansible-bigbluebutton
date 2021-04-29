@@ -44,3 +44,8 @@
   notify:
     - restart bbb-web
 
+- name: write custom meteor config
+  copy:
+    content: guest-wait.html
+    dest: /usr/share/meteor/bundle/programs/server/assets/app/static/guest-wait/guest-wait.html
+
