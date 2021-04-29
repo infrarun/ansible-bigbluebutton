@@ -28,26 +28,3 @@
   notify:
     - restart bbb-web
 
-- name: write custom meteor config
-  become: true
-  copy:
-    content: '{{ bbb_meteor | to_nice_yaml }}'
-    dest: /etc/bigbluebutton/bbb-html5.yml
-  notify:
-    - restart bbb-html5
-
-- name: set amount of html5 back- and frontends
-  become: true
-  template:
-    src: bbb-html5-with-roles.conf
-    dest: /etc/bigbluebutton/bbb-html5-with-roles.conf
-    mode: 0644
-  notify:
-    - restart bbb-web
-
-- name: write localized guest wait page
-  become: true
-  copy:
-    src: guest-wait.html
-    dest: /usr/share/meteor/bundle/programs/server/assets/app/static/guest-wait/guest-wait.html
-
