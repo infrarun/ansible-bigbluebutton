@@ -3,7 +3,7 @@
 - name: add kurento-media-server@.service
   become: true
   template:
-    src: kurento-media-server@.service
+    src: kurento/kurento-media-server@.service
     dest: /usr/lib/systemd/system/kurento-media-server@.service
     mode: 0644
   notify:
@@ -13,7 +13,7 @@
 - name: add kurento-media-server.target
   become: true
   template:
-    src: kurento-media-server.target
+    src: kurento/kurento-media-server.target
     dest: /usr/lib/systemd/system/kurento-media-server.target
     mode: 0644
   notify:
@@ -31,18 +31,12 @@
      path: /etc/init.d/kurento-media-server
      state: absent
 
-- name: remove kurento-media-server.service override
-  become: true
-  file:
-     path: /etc/systemd/system/kurento-media-server.service.d/override.conf
-     state: absent
-
 - meta: flush_handlers
 
 - name: template kurento-media-server instance configs
   become: true
   template:
-    src: "kurento.conf.json"
+    src: kurento/kurento.conf.json
     dest: "/etc/kurento/kurento-{{ item }}.conf.json"
     mode: 0644
   with_items: [ 8888, 8889, 8890 ]
@@ -87,7 +81,7 @@
 - name: enable kurento-media-server target
   become: true
   systemd:
-     name: "kurento-media-server.target"
+     name: kurento-media-server.target
      enabled: true
      state: started
   notify:
