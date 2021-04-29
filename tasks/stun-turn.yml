@@ -1,6 +1,7 @@
 ---
 
 - name: template bbb-web stun-turn config
+  become: true
   template:
     src: turn-stun-servers.xml
     dest: /etc/bigbluebutton/turn-stun-servers.xml

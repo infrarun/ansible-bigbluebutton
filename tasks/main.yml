@@ -1,10 +1,12 @@
 ---
 - name: Install required packages
+  become: true
   apt:
     name: ["language-pack-en", "software-properties-common", "openjdk-8-jre-headless"]
     update_cache: true
 
 - name: set version of java to use
+  become: true
   file:
     src: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
     dest: /etc/alternatives/java
@@ -16,6 +18,7 @@
 - import_tasks: repositories.yml
 
 - name: install bbb and dependencies
+  become: true
   apt:
     name: ["mongodb-org", "bigbluebutton"]
 
@@ -24,12 +27,14 @@
 - meta: flush_handlers
 
 - name: Ensure mongod is started and enabled to start at boot.
+  become: true
   systemd:
     name: mongod
     enabled: true
     state: started
 
 - name: Ensure nginx is started and enabled to start at boot.
+  become: true
   systemd:
     name: nginx
     enabled: true
@@ -61,6 +66,7 @@
   when: bbb_wildcard_cert is defined
 
 - name: Check if bbb_ssl_cert exists
+  become: true
   stat:
     path: "/etc/letsencrypt/live/{{ bbb_hostname }}/fullchain.pem"
   register: bbbcert

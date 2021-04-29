@@ -23,6 +23,7 @@
   notify: restart bigbluebutton
 
 - name: Update /etc/bigbluebutton/turn-stun-servers.xml
+  become: true
   template:
     src: turn-stun-servers.xml
     dest: /etc/bigbluebutton/turn-stun-servers.xml
@@ -32,6 +33,7 @@
   notify: restart bigbluebutton
 
 - name: serve recordings via https
+  become: true
   lineinfile:
     path: /usr/local/bigbluebutton/core/scripts/bigbluebutton.yml
     regexp: "playback_protocol"
