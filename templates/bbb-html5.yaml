@@ -1,8 +1,0 @@
----
-public:
-  app:
-    helpLink: https://bigbluebutton.org/html5/
-    basename: '/html5client'
-    skipCheck: false
-    mirrorOwnWebcam: true
-    enableMultipleCameras: true
