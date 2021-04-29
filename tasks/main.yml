@@ -13,8 +13,6 @@
     state: link
   notify: restart bigbluebutton
 
-- import_tasks: locale.yml
-
 - import_tasks: repositories.yml
 
 - name: install bbb and dependencies
