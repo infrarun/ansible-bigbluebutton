@@ -1,10 +1,12 @@
 - name: create AppArmor rules
   become: true
-  copy:
+  template:
     src: opt.freeswitch.bin.freeswitch
     dest: /etc/apparmor.d/opt.freeswitch.bin.freeswitch
     mode: 0600
-  notify: reload apparmor
+  notify:
+   - reload apparmor
+   - restart freeswitch
 
 - name: fix freeswitch systemd service permissions
   become: true
