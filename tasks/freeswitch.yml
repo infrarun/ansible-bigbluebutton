@@ -89,7 +89,7 @@
   become: true
   copy:
     src: "sounds/muteunmute/{{ item }}"
-    dest: "/opt/freeswitch/share/freeswitch/sounds/en/us/callie/conference/{{ item }}/"
+    dest: "/opt/freeswitch/share/freeswitch/sounds/en/us/callie/conference/{{ item }}"
     mode: 0644
     owner: root
     group: root
