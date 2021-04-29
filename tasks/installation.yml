@@ -12,7 +12,6 @@
     src: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
     dest: /etc/alternatives/java
     state: link
-  notify: restart bigbluebutton
 
 - name: install bbb and dependencies
   become: true

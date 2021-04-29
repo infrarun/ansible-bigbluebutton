@@ -1,10 +1,7 @@
 ---
 - import_tasks: repositories.yml
 - import_tasks: installation.yml
-
 - import_tasks: mongodb.yml
-
-- meta: flush_handlers
 
 
 - name: Ensure nginx is started and enabled to start at boot.
