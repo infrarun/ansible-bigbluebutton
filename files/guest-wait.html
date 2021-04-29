@@ -188,6 +188,7 @@
 
     window.onload = function() {
       window.document.title = _('app.windowTitle');
+      updateMessage(_('app.waitForModerator'));
       enableAnimation();
       try {
         const ATTEMPT_EVERY_MS = 5000;
