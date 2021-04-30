@@ -1,0 +1,55 @@
+---
+
+- name: copy announcement
+  become: true
+  copy:
+    src: sounds/you-are-muted.flac
+    dest: /opt/freeswitch/share/freeswitch/sounds/you-are-muted.flac
+    mode: 0644
+
+- name: create helper scripts
+  become: true
+  template:
+    src: "dialin/{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: 0755
+  loop:
+    - conferenceExists
+    - conferenceMutedOnStart
+
+- set_fact:
+    sip_mode: "{{ 'gateway' if bbb_sipgw is defined else 'standalone'}}"
+
+- name: create sip profile
+  become: true
+  template:
+    src: "dialin/{{ sip_mode }}/profile.xml"
+    dest: /opt/freeswitch/etc/freeswitch/sip_profiles/dialin.xml
+    mode: 0640
+  notify: restart sofia dialin profile
+
+- name: create dialplan
+  become: true
+  template:
+    src: "dialin/{{ sip_mode }}/dialplan.xml"
+    dest: /opt/freeswitch/etc/freeswitch/dialplan/from-dialin.xml
+    mode: 0640
+  notify: reload freeswitch xml
+
+- block:
+  - name: update ACL to accept calls from SIP Gateway
+    become: true
+    template:
+      src: dialin/gateway/acl.conf.xml
+      dest: /opt/freeswitch/etc/freeswitch/autoload_configs/acl.conf.xml
+      owner: root
+      group: root
+      mode: 0644
+    notify: reload freeswitch acls
+
+  - name: register with sip gateway
+    become: true
+    delegate_to: "{{ bbb_sipgw }}"
+    command:
+      cmd: "fs_cli -x 'db insert/bbb_host_ip/{{ bbb_sip_extension }}/{{ ansible_default_ipv4.address }}'"
+  when: bbb_sipgw is defined

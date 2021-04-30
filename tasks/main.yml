@@ -16,11 +16,5 @@
 - import_tasks: stun-turn.yml
 - import_tasks: thp.yml
 
-- include: dialin_standalone.yml
-  when: bbb_sipgw is not defined and bbb_sip_account is defined
-
-- include: dialin_sipgw.yml
-  when: bbb_sipgw is defined
-
-- import_tasks: register_with_sipgw.yml
-  when: bbb_sipgw is defined
+- import_tasks: dialin.yml
+  when: bbb_sipgw is defined or bbb_sip_account is defined
