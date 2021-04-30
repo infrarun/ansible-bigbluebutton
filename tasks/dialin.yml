@@ -37,7 +37,7 @@
   notify: reload freeswitch xml
 
 - block:
-  - name: update ACL to accept calls from SIP Gateway
+  - name: accept calls from gateway
     become: true
     template:
       src: dialin/gateway/acl.conf.xml
@@ -47,9 +47,19 @@
       mode: 0644
     notify: reload freeswitch acls
 
-  - name: register with sip gateway
-    become: true
+  - name: test gateway registration
     delegate_to: "{{ bbb_sipgw }}"
+    become: true
+    command:
+      cmd: "fs_cli -x 'db select/bbb_host_ip/{{ bbb_sip_extension }}'"
+    check_mode: false
+    changed_when: false
+    register: sipgw_select
+
+  - name: register with gateway
+    delegate_to: "{{ bbb_sipgw }}"
+    become: true
     command:
       cmd: "fs_cli -x 'db insert/bbb_host_ip/{{ bbb_sip_extension }}/{{ ansible_default_ipv4.address }}'"
+    when: ansible_default_ipv4.address not in sipgw_select.stdout
   when: bbb_sipgw is defined
