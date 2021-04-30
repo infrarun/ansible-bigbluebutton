@@ -1,5 +1,9 @@
 ---
 - import_tasks: repositories.yml
+
+# Hotfix: This can be removed as soon as upstream fixes dependency issues
+- import_tasks: libreoffice.yml
+
 - import_tasks: installation.yml
 - import_tasks: mongodb.yml
 
