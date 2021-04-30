@@ -25,7 +25,7 @@
   template:
     src: "dialin/{{ sip_mode }}/profile.xml"
     dest: /opt/freeswitch/etc/freeswitch/sip_profiles/dialin.xml
-    mode: 0640
+    mode: 0644
   notify: restart sofia dialin profile
 
 - name: create dialplan
@@ -33,7 +33,7 @@
   template:
     src: "dialin/{{ sip_mode }}/dialplan.xml"
     dest: /opt/freeswitch/etc/freeswitch/dialplan/from-dialin.xml
-    mode: 0640
+    mode: 0644
   notify: reload freeswitch xml
 
 - block:
