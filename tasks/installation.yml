@@ -3,7 +3,7 @@
 - name: install dependencies
   become: true
   apt:
-    name: ["language-pack-en", "software-properties-common", "openjdk-8-jre-headless"]
+    name: ["language-pack-en", "software-properties-common", "mongodb-org", "nodejs", "openjdk-8-jre-headless"]
     update_cache: true
 
 - name: set version of java to use
@@ -13,7 +13,7 @@
     dest: /etc/alternatives/java
     state: link
 
-- name: install bbb and dependencies
+- name: install bbb
   become: true
   apt:
-    name: ["mongodb-org", "bigbluebutton"]
+    name: ["bigbluebutton"]
