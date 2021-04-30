@@ -3,7 +3,7 @@
 - name: install dependencies
   become: true
   apt:
-    name: ["language-pack-en", "software-properties-common", "mongodb-org", "nodejs", "openjdk-8-jre-headless"]
+    name: ["language-pack-en", "software-properties-common", "mongodb-org", "nodejs", "docker.io", "openjdk-8-jre-headless"]
     update_cache: true
 
 - name: set version of java to use
