@@ -18,10 +18,3 @@
   notify:
     - restart bbb-web
 
-- name: write localized guest wait page
-  become: true
-  copy:
-    src: guest-wait.html
-    dest: /usr/share/meteor/bundle/programs/server/assets/app/static/guest-wait/guest-wait.html
-    mode: 0644
-
