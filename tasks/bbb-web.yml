@@ -7,12 +7,11 @@
     path: /etc/systemd/system/bbb-web.service.d/
     mode: 0755
 
-- name: deploy bbb-web service override configuration
+- name: remove bbb-web service override configuration
   become: true
-  template:
-    src: bbb-web.override
-    dest: /etc/systemd/system/bbb-web.service.d/override.conf
-    mode: 0644
+  file:
+    path: /etc/systemd/system/bbb-web.service.d/override.conf
+    state: absent
   notify:
     - reload systemd
     - restart bbb-web
