@@ -24,12 +24,12 @@
     notify: reload nginx
   when: bbb_wildcard_cert is defined
 
-- name: ensure nginx is started and enabled to start at boot
+- name: ensure nginx is enabled to start at boot
   become: true
   systemd:
     name: nginx
     enabled: true
-    state: started
+  notify: restart nginx
 
 - name: check if bbb_ssl_cert exists
   become: true
