@@ -41,6 +41,12 @@
   command:
     cmd: "fs_clibbb -x 'sofia profile dialin start'"
 
+- name: stop mongo
+  become: true
+  systemd:
+    name: mongod
+    state: stopped
+
 - name: restart mongo
   become: true
   systemd:
