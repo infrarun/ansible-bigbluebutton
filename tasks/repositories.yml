@@ -28,7 +28,7 @@
     - "deb-src http://archive.ubuntu.com/ubuntu {{ adr }}-updates multiverse"
     - "deb http://repo.mongodb.org/apt/ubuntu/ {{ adr }}/mongodb-org/{{ bbb_mongodb_version }} multiverse"
     - "deb https://deb.nodesource.com/node_{{ bbb_nodejs_version }}.x {{ adr }} main"
-    - "deb https://ubuntu.bigbluebutton.org/{{ adr }}-230/ bigbluebutton-{{ adr }} main"
+    - "deb https://ubuntu.bigbluebutton.org/{{ adr }}-{{ bbb_repo_version }}/ bigbluebutton-{{ adr }} main"
     - "ppa:bigbluebutton/support"
     - "ppa:rmescandon/yq"
     - "ppa:certbot/certbot"

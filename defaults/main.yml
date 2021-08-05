@@ -24,6 +24,7 @@ bbb_freeswitch_external_ip: "stun:{{ (bbb_stun_servers | first).server }}"
 bbb_system_locale: en_US.UTF-8
 bbb_mongodb_version: 4.2
 bbb_mongodb_tempfssize: "512m"
+bbb_repo_version: "230"
 
 bbb_webrtc_sfu_singlekurento:
   balancing-strategy: ROUND_ROBIN
