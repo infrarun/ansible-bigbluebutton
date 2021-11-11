@@ -78,8 +78,17 @@
     mode: 0644
   notify: reload nginx
 
+- name: template bbb sip nginx config
+  become: true
+  template:
+    src: nginx/sip.nginx
+    dest: /etc/bigbluebutton/nginx/sip.nginx
+    mode: 0644
+  notify: reload nginx
+
 - name: disable default site
   become: true
   file:
-    name: '/etc/nginx/sites-enabled/default'
+    name: /etc/nginx/sites-enabled/default
     state: absent
+  notify: reload nginx
