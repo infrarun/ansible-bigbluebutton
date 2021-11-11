@@ -70,7 +70,7 @@
     mode: 0644
   notify: reload nginx
 
-- name: copy bbb's nginx vhost
+- name: template bbb nginx vhost
   become: true
   template:
     src: nginx/vhost.conf
