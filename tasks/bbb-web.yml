@@ -12,6 +12,15 @@
     - reload systemd
     - restart bbb-web
 
+- name: set correct owner for bbb-web files
+  become: true
+  file: 
+    dest: /usr/share/bbb-web/
+    owner: root 
+    group: root
+    recurse: true
+  notify: restart bbb-web
+
 - name: configure bbb-web application settings
   become: true
   template:
