@@ -1,17 +1,13 @@
 ---
 
-- name: create bbb-web service override directory
+- name: override bbb-web service
   become: true
-  file:
-    state: directory
-    path: /etc/systemd/system/bbb-web.service.d/
-    mode: 0755
-
-- name: remove bbb-web service override configuration
-  become: true
-  file:
-    path: /etc/systemd/system/bbb-web.service.d/override.conf
-    state: absent
+  template:
+    src: bbb-web/bbb-web.service
+    dest: /lib/systemd/system/bbb-web.service
+    mode: 0644
+    owner: root
+    group: root
   notify:
     - reload systemd
     - restart bbb-web
@@ -19,11 +15,17 @@
 - name: configure bbb-web application settings
   become: true
   template:
-    src: '{{ item }}'
-    dest: '/usr/share/bbb-web/WEB-INF/classes/{{ item }}'
+    src: bbb-web/logback.xml
+    dest: /usr/share/bbb-web/WEB-INF/classes/logback.xml
     mode: 0644
-  loop:
-    - logback.xml
-  notify:
-    - restart bbb-web
+  notify: restart bbb-web
 
+- name: template bbb-web.properties
+  become: true
+  template:
+    src: bbb-web/bbb-web.properties
+    dest: /etc/bigbluebutton/bbb-web.properties
+    owner: root
+    group: root
+    mode: 0600
+  notify: restart bbb-web

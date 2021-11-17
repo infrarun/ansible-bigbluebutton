@@ -1,0 +1,21 @@
+[Unit]
+Description=BigBlueButton Web Application
+Requires=network.target
+After=redis.service
+
+[Service]
+Type=simple
+User=bigbluebutton
+Group=bigbluebutton
+WorkingDirectory=/usr/share/bbb-web
+ExecStart=/usr/bin/java -Dgrails.env=prod -Dserver.address=127.0.0.1 -Dserver.port=8090 -Xms384m -Xmx384m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/bigbluebutton/diagnostics -cp WEB-INF/lib/*:/:WEB-INF/classes/:. org.springframework.boot.loader.WarLauncher
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+RestartSec=60
+SuccessExitStatus=
+TimeoutStopSec=5
+PermissionsStartOnly=true
+LimitNOFILE=1024
+
+[Install]
+WantedBy=multi-user.target
