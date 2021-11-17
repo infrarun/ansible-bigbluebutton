@@ -14,9 +14,9 @@
 
 - name: set correct owner for bbb-web files
   become: true
-  file: 
+  file:
     dest: /usr/share/bbb-web/
-    owner: root 
+    owner: root
     group: root
     recurse: true
   notify: restart bbb-web
