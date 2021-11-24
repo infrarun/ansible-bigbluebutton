@@ -19,6 +19,7 @@
     owner: root
     group: root
     recurse: true
+    follow: false
   notify: restart bbb-web
 
 - name: configure bbb-web application settings
