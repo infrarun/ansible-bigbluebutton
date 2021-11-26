@@ -78,6 +78,14 @@
     mode: 0644
   notify: reload nginx
 
+- name: template ip mapping for BB
+  become: true
+  template:
+    src: nginx/bigbluebutton_sip_addr_map.conf
+    dest: /etc/nginx/conf.d/bigbluebutton_sip_addr_map.conf
+    mode: 0644
+  notify: reload nginx
+
 - name: template bbb sip nginx config
   become: true
   template:
