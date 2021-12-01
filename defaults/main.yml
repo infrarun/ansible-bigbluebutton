@@ -88,6 +88,44 @@ bbb_webrtc_sfu_multikurento:
     level: warn
     filename:
 
+bbb_webrtc_sfu_mediasoup:
+  balancing-strategy: ROUND_ROBIN
+  videoMediaServer: mediasoup
+  screenshareMediaServer: mediasoup
+  audioMediaServer: mediasoup
+  listenOnlyMediaServer: mediasoup
+  localIpAddress: "{{ ansible_default_ipv4.address }}"
+  mediasoup:
+    webrtc:
+      listenIps:
+        - ip: "0.0.0.0"
+          announcedIp: "{{ ansible_default_ipv4.address }}"
+        - ip: "::"
+          announcedIp: "{{ ansible_default_ipv6.address }}"
+    plainRtp:
+      listenIps:
+        - ip: "0.0.0.0"
+          announcedIp: "{{ ansible_default_ipv4.address }}"
+        - ip: "::"
+          announcedIp: "{{ ansible_default_ipv6.address }}"
+  kurento:
+    - ip: "{{ ansible_default_ipv4.address }}"
+      url: ws://127.0.0.1:8888/kurento
+      mediaType: main
+      ipClassMappings:
+        local: ""
+        private: ""
+        public: ""
+      options:
+        failAfter: 5
+        request_timeout: 30000
+        response_timeout: 30000
+  freeswitch:
+    esl_password: "{{ bbb_freeswitch_socket_password }}"
+  log:
+    level: warn
+    filename:
+
 bbb_meteor:
   public:
     note:
@@ -186,6 +224,8 @@ bbb_meteor:
         mobilePageSizes:
           moderator: 8
           viewer: 8
+
+bbb_webrtc_sfu_config: "{{ bbb_webrtc_sfu_multikurento }}"
 
 bbb_html5_backend_processes: 1
 bbb_html5_frontend_processes: 1
