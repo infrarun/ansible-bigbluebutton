@@ -9,6 +9,35 @@
   notify:
     - restart bbb-html5
 
+- name: increase max-old-space-size in frontends to 4096
+  become: true
+  replace:
+    path: /usr/share/meteor/bundle/systemd_start_frontend.sh
+    regexp: '(--max-old-space-size)=(\d*)'
+    replace: '\1=4096'
+  notify:
+    - restart bbb-html5
+
+- name: deploy bbb-html5-frontend@ service override configuration
+  become: true
+  template:
+    src: bbb-html5-frontend@.override
+    dest: /etc/systemd/system/bbb-html5-frontend@.service.d/override.conf
+    mode: 0644
+  notify:
+    - reload systemd
+    - restart bbb-html5
+
+- name: deploy bbb-html5-backend@ service override configuration
+  become: true
+  template:
+    src: bbb-html5-backend@.override
+    dest: /etc/systemd/system/bbb-html5-frontend@.service.d/override.conf
+    mode: 0644
+  notify:
+    - reload systemd
+    - restart bbb-html5
+
 - name: set amount of html5 back- and frontends
   become: true
   template:
