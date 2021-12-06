@@ -18,6 +18,16 @@
   notify:
     - restart bbb-html5
 
+- name: create bbb-html5 service override directory
+  become: true
+  file:
+    state: directory
+    path: /etc/systemd/system/{{ item }}.d
+    mode: 0755
+  loop:
+    - bbb-html5-frontend@.service
+    - bbb-html5-backend@.service
+
 - name: deploy bbb-html5-frontend@ service override configuration
   become: true
   template:
