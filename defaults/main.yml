@@ -213,6 +213,7 @@ bbb_meteor:
             profile: low-u25
           - threshold: 30
             profile: low-u30
+      forceRelayOnFirefox: true
       cameraTimeouts:
         baseTimeout: 30000
       pagination:
