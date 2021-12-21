@@ -16,6 +16,7 @@ bbb_webhooks_enable: false
 bbb_allow_mail_notifications: true
 bbb_disable_recordings: false
 bbb_api_demos_enable: false
+bbb_learning_dashboard_enable: true
 bbb_mute_on_start: false
 bbb_nodejs_version: 12
 bbb_cpuschedule: true
