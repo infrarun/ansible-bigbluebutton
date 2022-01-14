@@ -31,3 +31,14 @@
     mode: 0644
   notify:
     - restart bbb-webrtc-sfu
+
+# https://github.com/bigbluebutton/bigbluebutton/issues/14066
+# Remove me once BBB 2.4.1 is out
+- name: apply BBB 2.4.0 workaround for firefox 96
+  become: true
+  patch:
+    src: issue-14066-fix-firefox-96.patch
+    basedir: /usr/local/bigbluebutton/bbb-webrtc-sfu
+    strip: 1
+  notify:
+    - restart bbb-webrtc-sfu

@@ -1,0 +1,96 @@
+From cd0b87c5b1a36c0434e82c56feb9abf1fba3694a Mon Sep 17 00:00:00 2001
+From: prlanzarin <4529051+prlanzarin@users.noreply.github.com>
+Date: Wed, 12 Jan 2022 13:33:33 -0300
+Subject: [PATCH] fix(mediasoup): add option to strip ssrcs from answer, use it
+ on sendonly streams
+
+---
+ .../lib/adapters/mediasoup/sdp-translator.js  | 25 ++++++++++++++++---
+ lib/screenshare/screenshare.js                |  3 +++
+ lib/video/video.js                            |  5 +++-
+ 3 files changed, 29 insertions(+), 4 deletions(-)
+
+diff --git a/lib/mcs-core/lib/adapters/mediasoup/sdp-translator.js b/lib/mcs-core/lib/adapters/mediasoup/sdp-translator.js
+index b03702c..39e7950 100644
+--- a/lib/mcs-core/lib/adapters/mediasoup/sdp-translator.js
++++ b/lib/mcs-core/lib/adapters/mediasoup/sdp-translator.js
+@@ -75,11 +75,28 @@ const extractRTPParams = (baseRTPCaps, jsonSdp, kind, mode) => {
+   return params;
+ }
+ 
+-const _processHackFlags = (targetMediaSection, adapterOptions = {}) => {
++// FIXME remove this once the bidirectionaly work + mediaTypes|profiles stuff
++// is refactored and working properly
++const _stripSsrcs = (targetMediaSection, { offerRtpParameters }) => {
++  if (offerRtpParameters.encodings) {
++    // Hack: manually delete ssrcs entry if we're talking about a sendonly
++    // stream. Our answer doesn't need to have a ssrc if it's unidirectional.
++    targetMediaSection._mediaObject.ssrcs = targetMediaSection._mediaObject.ssrcs.filter(({ ssrc }) => {
++      !offerRtpParameters.encodings.some(({ targetSsrc }) => targetSsrc === ssrc);
++    });
++  }
++  return targetMediaSection;
++}
++
++const _processHackFlags = (targetMediaSection, adapterOptions, parameters = {}) => {
+   if (adapterOptions.msHackRTPAVPtoRTPAVPF) {
+     targetMediaSection._mediaObject.protocol = targetMediaSection._mediaObject
+       .protocol.replace(/RTP\/AVP/ig, 'RTP/AVPF');
+   }
++
++  if (adapterOptions.msHackStripSsrcs) {
++    _stripSsrcs(targetMediaSection, parameters);
++  }
+ }
+ 
+ const _getMappedDirectionFromMType = (mediaTypes) => {
+@@ -104,7 +121,7 @@ const _getMappedDirectionFromMType = (mediaTypes) => {
+ const assembleSDP = (mediaTypes, {
+   transportOptions,
+   kindParametersMap,
+-  adapterOptions,
++  adapterOptions = {},
+ }) => {
+   const reassembledSDP = new RemoteSdp.RemoteSdp({
+     ...transportOptions,
+@@ -145,7 +162,9 @@ const assembleSDP = (mediaTypes, {
+         targetMediaSection._mediaObject.rtcp.port = transportOptions.plainRtpParameters.rtcpPort;
+       }
+ 
+-      _processHackFlags(targetMediaSection, adapterOptions);
++      _processHackFlags(targetMediaSection, adapterOptions, {
++          offerRtpParameters: kMap.offerRtpParameters,
++      });
+     }
+   });
+ 
+diff --git a/lib/screenshare/screenshare.js b/lib/screenshare/screenshare.js
+index d4501af..2b756fb 100644
+--- a/lib/screenshare/screenshare.js
++++ b/lib/screenshare/screenshare.js
+@@ -711,6 +711,9 @@ module.exports = class Screenshare extends BaseProvider {
+         adapter: this.presenterAdapter,
+         mediaSpecs,
+         ignoreThresholds: IGNORE_THRESHOLDS,
++        adapterOptions: {
++          msHackStripSsrcs: true,
++        },
+       };
+ 
+       const { mediaId, answer } = await this.mcs.publish(
+diff --git a/lib/video/video.js b/lib/video/video.js
+index b34975f..cff7f82 100644
+--- a/lib/video/video.js
++++ b/lib/video/video.js
+@@ -715,7 +715,10 @@ module.exports = class Video extends BaseProvider {
+         mediaSpecs,
+         kurentoRembParams,
+         adapter: this.mediaServerAdapter,
+-        ignoreThresholds: IGNORE_THRESHOLDS
++        ignoreThresholds: IGNORE_THRESHOLDS,
++        adapterOptions: {
++          msHackStripSsrcs: true,
++        },
+       };
+ 
+       const { mediaId, answer } = await this.mcs.publish(this.userId, this.voiceBridge, type, options);
