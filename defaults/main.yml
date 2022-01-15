@@ -130,7 +130,7 @@ bbb_webrtc_sfu_mediasoup:
 bbb_meteor:
   public:
     note:
-      url: "https://{{ inventory_hostname }}/pad"
+      url: "https://{{ bbb_hostname }}/pad"
     app:
       skipCheck: false
       mirrorOwnWebcam: true
@@ -145,7 +145,7 @@ bbb_meteor:
     media:
       sipjsHackViaWs: true
     kurento:
-      wsUrl: "wss://{{ inventory_hostname }}/bbb-webrtc-sfu"
+      wsUrl: "wss://{{ bbb_hostname }}/bbb-webrtc-sfu"
       cameraProfiles:
       - id: low-u30
         name: low-u30
@@ -214,6 +214,7 @@ bbb_meteor:
             profile: low-u25
           - threshold: 30
             profile: low-u30
+      enableVideoPin: true
       forceRelayOnFirefox: true
       cameraTimeouts:
         baseTimeout: 30000
@@ -244,4 +245,4 @@ bbb_custom_presentation_name: "default.pdf"
 bbb_api_key: ""
 bbb_meeting_inactivity_timeout_minutes: 10
 
-bbb_sip_extension: "{{ ansible_hostname }}"
+bbb_sip_extension: "{{ bbb_hostname }}"
