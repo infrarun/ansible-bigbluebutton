@@ -146,6 +146,19 @@ bbb_meteor:
       sipjsHackViaWs: true
     kurento:
       wsUrl: "wss://{{ bbb_hostname }}/bbb-webrtc-sfu"
+      screenshare:
+        enableVolumeControl: true
+        bitrate: 2500
+        constraints:
+          video:
+            frameRate:
+              ideal: 25
+              max: 30
+            width:
+              max: 2560
+            height:
+              max: 1600
+          audio: true
       cameraProfiles:
       - id: low-u30
         name: low-u30
@@ -198,7 +211,11 @@ bbb_meteor:
       - id: hd
         name: High definition
         default: false
-        bitrate: 1200
+        bitrate: 1500
+        constraints:
+          width: 1920
+          frameRate: 25
+
       cameraQualityThresholds:
         enabled: true
         thresholds:
