@@ -78,7 +78,23 @@
     mode: 0644
   notify: reload nginx
 
-- name: template ip mapping for BB
+- name: template bbb-html5 main config
+  become: true
+  template:
+    src: nginx/bbb-html5.nginx
+    dest: /etc/bigbluebutton/nginx/bbb-html5.nginx
+    mode: 0644
+  notify: reload nginx
+
+- name: template bbb loadbalancer config
+  become: true
+  template:
+    src: nginx/loadbalancer.nginx
+    dest: /etc/bigbluebutton/nginx/loadbalancer.nginx
+    mode: 0644
+  notify: reload nginx
+
+- name: template ip mapping for BBB
   become: true
   template:
     src: nginx/bigbluebutton_sip_addr_map.conf

@@ -1,5 +1,11 @@
 ---
 
+- name: mix cluster config into bbb_metor
+  become: true
+  set_fact:
+     bbb_meteor: '{{ bbb_meteor | combine(bbb_meteor_cluster, recursive=True) }}'
+  when: bbb_cluster_proxy_host | length > 0
+
 - name: write custom meteor config
   become: true
   copy:
@@ -28,12 +34,23 @@
     - bbb-html5-frontend@.service
     - bbb-html5-backend@.service
 
-- name: deploy bbb-html5-frontend@ service override configuration
+- name: deploy bbb-html5-frontend@ service generic override configuration
   become: true
   template:
     src: bbb-html5-frontend@.override
     dest: /etc/systemd/system/bbb-html5-frontend@.service.d/override.conf
     mode: 0644
+  notify:
+    - reload systemd
+    - restart bbb-html5
+
+- name: deploy bbb-html5-frontend@ service cluster override configuration
+  become: true
+  template:
+    src: bbb-html5/cluster.conf
+    dest: /etc/systemd/system/bbb-html5-frontend@.service.d/cluster.conf
+    mode: 0644
+  when: bbb_cluster_proxy_host | length > 0
   notify:
     - reload systemd
     - restart bbb-html5

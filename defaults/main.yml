@@ -1,5 +1,6 @@
 ---
-bbb_hostname: "{{ ansible_fqdn }}"
+bbb_hostname: "{{ inventory_hostname }}"
+bbb_hostname_short: "{{ inventory_hostname_short }}"
 bbb_nginx_privacy: true
 
 bbb_stun_servers:
@@ -245,6 +246,18 @@ bbb_meteor:
           moderator: 8
           viewer: 8
 
+bbb_meteor_cluster:
+  public:
+    app:
+      basename: '/{{ bbb_hostname_short }}/html5client'
+      bbbWebBase: 'https://{{ bbb_hostname }}/bigbluebutton'
+      learningDashboardBase: 'https://{{ bbb_hostname }}/learning-dashboard'
+    media:
+      stunTurnServersFetchAddress: 'https://{{ bbb_hostname }}/bigbluebutton/api/stuns'
+      sip_ws_host: '{{ bbb_hostname }}'
+    presentation:
+      uploadEndpoint: 'https://{{ bbb_hostname }}/bigbluebutton/presentation/upload'
+
 bbb_webrtc_sfu_config: "{{ bbb_webrtc_sfu_multikurento }}"
 
 bbb_html5_backend_processes: 1
@@ -262,4 +275,7 @@ bbb_custom_presentation_name: "default.pdf"
 bbb_api_key: ""
 bbb_meeting_inactivity_timeout_minutes: 10
 
-bbb_sip_extension: "{{ bbb_hostname }}"
+bbb_sip_extension: "{{ bbb_hostname_short }}"
+
+bbb_cluster_proxy_host: ""
+bbb_html5client_location: "{% if bbb_cluster_proxy_host != '' %}/{{ bbb_hostname_short}}{% endif %}/html5client"

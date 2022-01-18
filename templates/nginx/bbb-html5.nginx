@@ -1,0 +1,41 @@
+location @html5client {
+  # proxy_pass http://127.0.0.1:4100; # use for development
+  proxy_pass http://poolhtml5servers; # use for production
+  proxy_http_version 1.1;
+  proxy_set_header Upgrade $http_upgrade;
+  proxy_set_header Connection "Upgrade";
+}
+
+location {{ bbb_html5client_location }}/locales {
+  alias /usr/share/meteor/bundle/programs/web.browser/app/locales;
+}
+
+location {{ bbb_html5client_location }}/compatibility {
+  alias /usr/share/meteor/bundle/programs/web.browser/app/compatibility;
+}
+
+location {{ bbb_html5client_location }}/resources {
+  alias /usr/share/meteor/bundle/programs/web.browser/app/resources;
+}
+
+location {{ bbb_html5client_location }}/svgs {
+  alias /usr/share/meteor/bundle/programs/web.browser/app/svgs;
+}
+
+location {{ bbb_html5client_location }}/fonts {
+  alias /usr/share/meteor/bundle/programs/web.browser/app/fonts;
+}
+
+location {{ bbb_html5client_location }}/wasm {
+  types {
+    application/wasm wasm;
+  }
+  gzip_static on;
+  alias /usr/share/meteor/bundle/programs/web.browser/app/wasm;
+}
+
+location {{ bbb_html5client_location }} {
+  alias /usr/share/meteor/bundle/programs/web.browser;
+  try_files $uri @html5client;
+}
+
