@@ -72,7 +72,7 @@
     dest: /etc/bigbluebutton/bbb-html5-with-roles.conf
     mode: 0644
   notify:
-    - restart bbb-web
+    - restart bbb-html5
 
 # Remove me once BBB 2.4.3 is out
 - name: apply post BBB 2.4.2 fix for camera swap
