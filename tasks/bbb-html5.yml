@@ -74,3 +74,14 @@
   notify:
     - restart bbb-web
 
+# Remove me once BBB 2.4.3 is out
+- name: apply post BBB 2.4.2 fix for camera swap
+  become: true
+  replace:
+    path: /usr/share/meteor/bundle/programs/web.browser/a63d0a19b13ab98c503ef4d16b995ceec82e7724.js
+    regexp:  'isMirrored:!1'
+    replace: 'isMirrored:f.mirrorOwnWebcam()'
+    backup: yes
+  notify:
+    - restart bbb-html5
+
