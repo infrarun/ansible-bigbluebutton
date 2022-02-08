@@ -4,9 +4,12 @@
 - name: write custom recording configuration
   become: true
   template:
-    src: bbb-record/bigbluebutton.yml
-    dest: /usr/local/bigbluebutton/core/scripts/bigbluebutton.yml
+    src: bbb-record/{{ item }}
+    dest: /usr/local/bigbluebutton/core/scripts/{{ item }}
     mode: 0644
+  loop:
+    - bigbluebutton.yml
+    - presentation.yml
   notify:
     - restart bbb-rap-caption-inbox
     - restart bbb-rap-resque-worker
