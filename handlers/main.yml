@@ -110,6 +110,18 @@
     name: apparmor
     state: reloaded
 
+- name: restart bbb-rap-caption-inbox
+  become: true
+  systemd:
+    name: bbb-rap-caption-inbox
+    state: restarted
+
+- name: restart bbb-rap-resque-worker
+  become: true
+  systemd:
+    name: bbb-rap-resque-worker
+    state: restarted
+
 - name: update grub
   become: true
   command: update-grub

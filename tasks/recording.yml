@@ -1,0 +1,12 @@
+---
+## FIXME: This needs to be overridden in /etc/bigbluebutton, depends
+## on https://github.com/bigbluebutton/bigbluebutton/issues/14304
+- name: write custom recording configuration
+  become: true
+  template:
+    src: bbb-record/bigbluebutton.yml
+    dest: /usr/local/bigbluebutton/core/scripts/bigbluebutton.yml
+    mode: 0644
+  notify:
+    - restart bbb-rap-caption-inbox
+    - restart bbb-rap-resque-worker
