@@ -35,6 +35,7 @@ location {{ bbb_html5client_location }}/wasm {
 }
 
 location {{ bbb_html5client_location }} {
+  gzip_static on;
   alias /usr/share/meteor/bundle/programs/web.browser;
   try_files $uri @html5client;
 }
