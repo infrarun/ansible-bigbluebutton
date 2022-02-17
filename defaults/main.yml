@@ -153,6 +153,7 @@ bbb_meteor:
       sipjsHackViaWs: true
     kurento:
       wsUrl: "wss://{{ bbb_hostname }}/bbb-webrtc-sfu"
+      signalCandidates: "{{ bbb_kurento_signal_candidates }}"
       screenshare:
         enableVolumeControl: true
         bitrate: 2500
@@ -288,3 +289,5 @@ bbb_html5client_location: "{% if bbb_cluster_proxy_host != '' %}/{{ bbb_hostname
 
 bbb_recordings_playback_host: "{{ bbb_hostname }}"
 bbb_recordings_playback_protocol: https
+
+bbb_kurento_signal_candidates: true
