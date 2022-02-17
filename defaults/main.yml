@@ -46,7 +46,7 @@ bbb_webrtc_sfu_singlekurento:
     esl_password: "{{ bbb_freeswitch_socket_password }}"
   log:
     level: warn
-    filename:
+    filename: /dev/stderr
 
 bbb_webrtc_sfu_multikurento:
   balancing-strategy: MEDIA_TYPE
@@ -88,7 +88,7 @@ bbb_webrtc_sfu_multikurento:
     esl_password: "{{ bbb_freeswitch_socket_password }}"
   log:
     level: warn
-    filename:
+    filename: /dev/stderr
 
 bbb_webrtc_sfu_mediasoup:
   balancing-strategy: ROUND_ROBIN
@@ -126,7 +126,7 @@ bbb_webrtc_sfu_mediasoup:
     esl_password: "{{ bbb_freeswitch_socket_password }}"
   log:
     level: warn
-    filename:
+    filename: /dev/stderr
 
 bbb_meteor:
   public:
