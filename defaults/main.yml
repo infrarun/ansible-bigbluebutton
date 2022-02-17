@@ -43,6 +43,8 @@ bbb_webrtc_sfu_singlekurento:
         request_timeout: 30000
         response_timeout: 30000
   freeswitch:
+    ip: "{{ ansible_default_ipv4.address }}"
+    sip_ip: "{{ ansible_default_ipv4.address }}"
     esl_password: "{{ bbb_freeswitch_socket_password }}"
   log:
     level: warn
@@ -85,6 +87,8 @@ bbb_webrtc_sfu_multikurento:
         request_timeout: 30000
         response_timeout: 30000
   freeswitch:
+    ip: "{{ ansible_default_ipv4.address }}"
+    sip_ip: "{{ ansible_default_ipv4.address }}"
     esl_password: "{{ bbb_freeswitch_socket_password }}"
   log:
     level: warn
@@ -123,6 +127,8 @@ bbb_webrtc_sfu_mediasoup:
         request_timeout: 30000
         response_timeout: 30000
   freeswitch:
+    ip: "{{ ansible_default_ipv4.address }}"
+    sip_ip: "{{ ansible_default_ipv4.address }}"
     esl_password: "{{ bbb_freeswitch_socket_password }}"
   log:
     level: warn
