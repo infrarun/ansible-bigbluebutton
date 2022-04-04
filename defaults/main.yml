@@ -222,6 +222,7 @@ bbb_meteor:
         bitrate: 1500
         constraints:
           width: 1920
+          width: 1080
           frameRate: 25
 
       cameraQualityThresholds:
