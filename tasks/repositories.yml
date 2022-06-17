@@ -16,7 +16,15 @@
 - set_fact:
     adr: "{{ ansible_distribution_release | lower }}"
 
-- name: add repositories
+- name: remove legacy bbb repo names
+  file:
+    path: "/etc/apt/sources.list.d/{{ item }}"
+    state: absent
+  with_items:
+    - ubuntu_bigbluebutton_org_bionic_240.list
+    - ubuntu_bigbluebutton_org_focal_250.list
+
+- name: add dependency repositories
   become: true
   apt_repository:
     repo: "{{ item }}"
@@ -28,7 +36,16 @@
     - "deb-src http://archive.ubuntu.com/ubuntu {{ adr }}-updates multiverse"
     - "deb http://repo.mongodb.org/apt/ubuntu/ {{ adr }}/mongodb-org/{{ bbb_mongodb_version }} multiverse"
     - "deb https://deb.nodesource.com/node_{{ bbb_nodejs_version }}.x {{ adr }} main"
-    - "deb https://ubuntu.bigbluebutton.org/{{ adr }}-{{ bbb_repo_version }}/ bigbluebutton-{{ adr }} main"
     - "ppa:bigbluebutton/support"
     - "ppa:rmescandon/yq"
     - "ppa:certbot/certbot"
+
+ # use uniform name to allow allow easy release pinning or upgrades to snapshots via bbb_repo_version
+ # note: this will not allow downgrades!
+- name: add bbb repository
+  become: true
+  apt_repository:
+    repo: "deb https://ubuntu.bigbluebutton.org/{{ adr }}-{{ bbb_repo_version }}/ bigbluebutton-{{ adr }} main"
+    mode: 0644
+    filename: "ubuntu_bigbluebutton_org.list"
+
