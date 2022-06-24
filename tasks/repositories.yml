@@ -17,6 +17,7 @@
     adr: "{{ ansible_distribution_release | lower }}"
 
 - name: remove legacy bbb repo names
+  become: true
   file:
     path: "/etc/apt/sources.list.d/{{ item }}"
     state: absent
