@@ -22,14 +22,6 @@
     mode: '0600'
   notify: restart bigbluebutton
 
-- name: serve recordings via https
-  become: true
-  lineinfile:
-    path: /usr/local/bigbluebutton/core/scripts/bigbluebutton.yml
-    regexp: "playback_protocol"
-    line: "playback_protocol: https"
-  notify: restart bigbluebutton
-
 - name: set default presentation
   become: true
   copy:
