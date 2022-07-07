@@ -10,8 +10,8 @@
       id: "770C4267C5E63474D171B60937B5DD5EFAB46452"
     - url: "https://www.mongodb.org/static/pgp/server-{{ bbb_mongodb_version }}.asc"
       id: "E162F504A20CDF15827F718D4B7C549A058F8B6B"
-#    - url: "https://www.mongodb.org/static/pgp/server-{{ bbb_mongodb_version }}.asc"
-#      id: "656408E390CFB1F5"
+    - url: "https://www.mongodb.org/static/pgp/server-{{ bbb_mongodb_version }}.asc"
+      id: "656408E390CFB1F5"
     - url: "https://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x1655A0AB68576280"
       id: "9FD3B784BC1C6FC31A8A0A1C1655A0AB68576280"
 
@@ -28,6 +28,3 @@
     - "deb http://repo.mongodb.org/apt/ubuntu/ {{ adr }}/mongodb-org/{{ bbb_mongodb_version }} multiverse"
     - "deb https://deb.nodesource.com/node_{{ bbb_nodejs_version }}.x {{ adr }} main"
     - "ppa:bigbluebutton/support"
-    - "ppa:rmescandon/yq"
-
-#   - "ppa:certbot/certbot"
