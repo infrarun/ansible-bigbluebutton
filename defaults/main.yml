@@ -26,6 +26,8 @@ bbb_system_locale: en_US.UTF-8
 bbb_mongodb_tempfssize: "512m"
 bbb_repo_version: "230"
 
+bbb_welcome_message_footer: "Um dieser Konferenz per Telefon beizutreten, w&auml;hlen Sie <tt>%%DIALNUM%%</tt> und geben <tt>%%CONFNUM%%</tt> als Konferenz-PIN ein.<br><br><b>Hinweis:</b> Anrufer sind ggf. stummgeschaltet. Dr&uuml;cken Sie <tt>0</tt> um zu sprechen bzw. sich stummzuschalten.'"
+
 bbb_webrtc_sfu_singlekurento:
   balancing-strategy: ROUND_ROBIN
   kurento:
