@@ -19,12 +19,10 @@ bbb_disable_recordings: false
 bbb_api_demos_enable: false
 bbb_learning_dashboard_enable: true
 bbb_mute_on_start: false
-bbb_nodejs_version: 12
 bbb_cpuschedule: true
 bbb_freeswitch_ipv6: true
 bbb_freeswitch_external_ip: "stun:{{ (bbb_stun_servers | first).server }}"
 bbb_system_locale: en_US.UTF-8
-bbb_mongodb_version: 4.2
 bbb_mongodb_tempfssize: "512m"
 bbb_repo_version: "230"
 
@@ -138,6 +136,8 @@ bbb_webrtc_sfu_mediasoup:
 
 bbb_meteor:
   public:
+    pads:
+      url: "https://{{ bbb_hostname }}/pad"
     note:
       url: "https://{{ bbb_hostname }}/pad"
     app:
@@ -224,6 +224,7 @@ bbb_meteor:
         bitrate: 1500
         constraints:
           width: 1920
+          height: 1080
           frameRate: 25
 
       cameraQualityThresholds:
@@ -260,7 +261,7 @@ bbb_meteor_cluster:
     app:
       basename: '/{{ bbb_hostname_short }}/html5client'
       bbbWebBase: 'https://{{ bbb_hostname }}/bigbluebutton'
-      learningDashboardBase: 'https://{{ bbb_hostname }}/learning-dashboard'
+      learningDashboardBase: 'https://{{ bbb_hostname }}/learning-analytics-dashboard'
     media:
       stunTurnServersFetchAddress: 'https://{{ bbb_hostname }}/bigbluebutton/api/stuns'
       sip_ws_host: '{{ bbb_hostname }}'
@@ -293,3 +294,21 @@ bbb_recordings_playback_host: "{{ bbb_hostname }}"
 bbb_recordings_playback_protocol: https
 
 bbb_kurento_signal_candidates: true
+
+bbb_java_version: "{{ bbb_java_version_table[ansible_distribution_version | replace('.', '_')] }}"
+bbb_java_version_table:
+  "18_04": 8
+  "20_04": 11
+
+bbb_nodejs_version: "{{ bbb_nodejs_version_table[ansible_distribution_version | replace('.', '_')] }}"
+bbb_nodejs_version_table:
+  "18_04": 12
+  "20_04": 16
+
+
+bbb_mongodb_version: "{{ bbb_mongodb_version_table[ansible_distribution_version | replace('.', '_')] }}"
+bbb_mongodb_version_table:
+  "18_04": 4.2
+  "20_04": 4.4
+
+

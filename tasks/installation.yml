@@ -3,13 +3,13 @@
 - name: install dependencies
   become: true
   apt:
-    name: ["language-pack-en", "software-properties-common", "mongodb-org", "nodejs", "docker.io", "openjdk-8-jre-headless"]
+    name: ["language-pack-en", "software-properties-common", "mongodb-org", "nodejs", "docker.io", "openjdk-{{ bbb_java_version }}-jre-headless"]
     update_cache: true
 
 - name: set version of java to use
   become: true
   file:
-    src: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+    src: "/usr/lib/jvm/java-{{ bbb_java_version }}-openjdk-amd64/bin/java"
     dest: /etc/alternatives/java
     state: link
 

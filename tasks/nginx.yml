@@ -82,7 +82,7 @@
   become: true
   template:
     src: nginx/bbb-html5.nginx
-    dest: /etc/bigbluebutton/nginx/bbb-html5.nginx
+    dest: /usr/share/bigbluebutton/nginx/bbb-html5.nginx
     mode: 0644
   notify: reload nginx
 
@@ -90,7 +90,7 @@
   become: true
   template:
     src: nginx/loadbalancer.nginx
-    dest: /etc/bigbluebutton/nginx/loadbalancer.nginx
+    dest: /usr/share/bigbluebutton/nginx/loadbalancer.nginx
     mode: 0644
   notify: reload nginx
 
@@ -106,7 +106,7 @@
   become: true
   template:
     src: nginx/sip.nginx
-    dest: /etc/bigbluebutton/nginx/sip.nginx
+    dest: /usr/share/bigbluebutton/nginx/sip.nginx
     mode: 0644
   notify: reload nginx
 
