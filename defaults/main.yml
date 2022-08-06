@@ -261,7 +261,7 @@ bbb_meteor_cluster:
     app:
       basename: '/{{ bbb_hostname_short }}/html5client'
       bbbWebBase: 'https://{{ bbb_hostname }}/bigbluebutton'
-      learningDashboardBase: 'https://{{ bbb_hostname }}/learning-dashboard'
+      learningDashboardBase: 'https://{{ bbb_hostname }}/learning-analytics-dashboard'
     media:
       stunTurnServersFetchAddress: 'https://{{ bbb_hostname }}/bigbluebutton/api/stuns'
       sip_ws_host: '{{ bbb_hostname }}'
