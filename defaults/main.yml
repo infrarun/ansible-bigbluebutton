@@ -278,10 +278,10 @@ bbb_web_loglevel: "WARN"
 bbb_dialplan_quality: "cdquality"
 bbb_dialplan_energy_level: 100
 bbb_dialplan_comfort_noise: 1400
-bbb_custom_presentation: "default.pdf"
+bbb_custom_presentation: ""
 # set this to the name the default presentation on the host should have.
 # if its not default.pdf moderators are able to delete the default presentation. Thats sometimes helpful and works fine.
-bbb_custom_presentation_name: "default.pdf" 
+bbb_custom_presentation_name: ""
 bbb_api_key: ""
 bbb_meeting_inactivity_timeout_minutes: 10
 
