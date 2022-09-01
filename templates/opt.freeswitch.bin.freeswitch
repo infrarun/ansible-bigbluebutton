@@ -20,7 +20,7 @@
   /var/freeswitch/meetings/* rw,
 
 # required for system()
-  /bin/dash rix,
+  /usr/bin/dash rix,
 # allow helper scripts
   /usr/local/bin/conference* rUx,
 
