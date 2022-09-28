@@ -147,6 +147,7 @@ bbb_meteor:
       enableNetworkInformation: true
       breakoutRoomLimit: 16
       warnAboutUnsavedContentOnMeetingEnd: true
+      disableWebsocketFallback: true
     chat:
       bufferChatInsertsMs: 100
       typingIndicator:
