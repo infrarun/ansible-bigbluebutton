@@ -6,6 +6,12 @@ location @html5client {
   proxy_set_header Connection "Upgrade";
 }
 
+# FIXME: guest-wait.html and learning-dashboard look for locales
+# in a hardcoded place
+location /html5client/locale {
+  return 302 {{ bbb_html5client_location }}$request_uri;
+}
+
 location {{ bbb_html5client_location }}/locales {
   alias /usr/share/meteor/bundle/programs/web.browser/app/locales;
 }
