@@ -92,6 +92,16 @@
     regexp: "^/opt/freeswitch/bin/fs_cli"
     line: "/opt/freeswitch/bin/fs_cli -p $(xmlstarlet sel -t -m 'configuration/settings/param[@name=\"password\"]' -v @value /opt/freeswitch/etc/freeswitch/autoload_configs/event_socket.conf.xml) \"$@\"" 
 
+- name: fix jitterbuffer settings
+  become: true
+  replace:
+    path: "/opt/freeswitch/etc/freeswitch/dialplan/default/{{ item }}"
+    regexp: data="120"
+    replace: data="60:120"
+  loop:
+    - bbb_conference.xml
+    - bbb_echo_to_conference.xml
+
 - meta: flush_handlers
 
 - name: configure different mute/unmute sounds
