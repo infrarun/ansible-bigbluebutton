@@ -6,18 +6,6 @@
     name: ["language-pack-en", "software-properties-common", "mongodb-org", "nodejs", "docker.io", "openjdk-{{ bbb_java_version }}-jre-headless"]
     update_cache: true
 
-- name: install low latency kernel
-  become: true
-  apt:
-    name: ["linux-lowlatency", "linux-headers-lowlatency"]
-
-- name: remove generic kernel
-  become: true
-  apt:
-    name: ["linux-generic", "linux-headers-generic"]
-    state: absent
-
-
 - name: set version of java to use
   become: true
   file:
