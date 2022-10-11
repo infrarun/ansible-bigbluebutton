@@ -17,3 +17,10 @@
   become: true
   apt:
     name: ["bigbluebutton"]
+
+- name: install extra or updated packages
+  become: true
+  apt:
+    deb: "{{ item }}"
+  loop: "{{ bbb_additional_packages }}"
+  when: bbb_additional_packages != ""
