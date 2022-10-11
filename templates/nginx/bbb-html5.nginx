@@ -9,30 +9,30 @@ location @html5client {
 # FIXME: guest-wait.html and learning-dashboard look for locales
 # in a hardcoded place
 location /html5client/locale {
-  return 302 {{ bbb_html5client_location }}$request_uri;
+  return 302 {{ bbb_html5client_prefix }}$request_uri;
 }
 
-location {{ bbb_html5client_location }}/locales {
+location {{ bbb_html5client_prefix }}/html5client/locales {
   alias /usr/share/meteor/bundle/programs/web.browser/app/locales;
 }
 
-location {{ bbb_html5client_location }}/compatibility {
+location {{ bbb_html5client_prefix }}/html5client/compatibility {
   alias /usr/share/meteor/bundle/programs/web.browser/app/compatibility;
 }
 
-location {{ bbb_html5client_location }}/resources {
+location {{ bbb_html5client_prefix }}/html5client/resources {
   alias /usr/share/meteor/bundle/programs/web.browser/app/resources;
 }
 
-location {{ bbb_html5client_location }}/svgs {
+location {{ bbb_html5client_prefix }}/html5client/svgs {
   alias /usr/share/meteor/bundle/programs/web.browser/app/svgs;
 }
 
-location {{ bbb_html5client_location }}/fonts {
+location {{ bbb_html5client_prefix }}/html5client/fonts {
   alias /usr/share/meteor/bundle/programs/web.browser/app/fonts;
 }
 
-location {{ bbb_html5client_location }}/wasm {
+location {{ bbb_html5client_prefix }}/html5client/wasm {
   types {
     application/wasm wasm;
   }
@@ -40,7 +40,7 @@ location {{ bbb_html5client_location }}/wasm {
   alias /usr/share/meteor/bundle/programs/web.browser/app/wasm;
 }
 
-location {{ bbb_html5client_location }} {
+location {{ bbb_html5client_prefix }}/html5client {
   gzip_static on;
   alias /usr/share/meteor/bundle/programs/web.browser;
   try_files $uri @html5client;

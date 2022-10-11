@@ -289,7 +289,7 @@ bbb_meeting_inactivity_timeout_minutes: 10
 bbb_sip_extension: "{{ bbb_hostname_short }}"
 
 bbb_cluster_proxy_host: ""
-bbb_html5client_location: "{% if bbb_cluster_proxy_host != '' %}/{{ bbb_hostname_short}}{% endif %}/html5client"
+bbb_html5client_prefix: "{% if bbb_cluster_proxy_host != '' %}/{{ bbb_hostname_short}}{% endif %}"
 
 bbb_recordings_playback_host: "{{ bbb_hostname }}"
 bbb_recordings_playback_protocol: https
