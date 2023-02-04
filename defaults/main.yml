@@ -96,6 +96,7 @@ bbb_webrtc_sfu_multikurento:
 
 bbb_webrtc_sfu_mediasoup:
   balancing-strategy: ROUND_ROBIN
+  fullAudioEnabled: true
   videoMediaServer: mediasoup
   screenshareMediaServer: mediasoup
   audioMediaServer: mediasoup
@@ -153,6 +154,8 @@ bbb_meteor:
       typingIndicator:
         enabled: false
     media:
+      audio:
+        defaultFullAudioBridge: fullaudio
       sipjsHackViaWs: true
     kurento:
       wsUrl: "wss://{{ bbb_hostname }}/bbb-webrtc-sfu"
@@ -262,7 +265,7 @@ bbb_meteor_cluster:
     app:
       basename: '/{{ bbb_hostname_short }}/html5client'
       bbbWebBase: 'https://{{ bbb_hostname }}/bigbluebutton'
-      learningDashboardBase: 'https://{{ bbb_hostname }}/learning-analytics-dashboard'
+      learningDashboardBase: 'https://{{ bbb_cluster_proxy_host }}/{{ bbb_hostname_short }}/learning-analytics-dashboard/'
     media:
       stunTurnServersFetchAddress: 'https://{{ bbb_hostname }}/bigbluebutton/api/stuns'
       sip_ws_host: '{{ bbb_hostname }}'
