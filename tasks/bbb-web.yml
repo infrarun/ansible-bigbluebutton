@@ -1,17 +1,5 @@
 ---
 
-- name: override bbb-web service
-  become: true
-  template:
-    src: bbb-web/bbb-web.service
-    dest: /lib/systemd/system/bbb-web.service
-    mode: 0644
-    owner: root
-    group: root
-  notify:
-    - reload systemd
-    - restart bbb-web
-
 - name: set correct owner for bbb-web files
   become: true
   file:

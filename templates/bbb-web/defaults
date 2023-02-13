@@ -1,0 +1,7 @@
+ENV=prod
+LISTEN_ADDRESS=127.0.0.1
+LISTEN_PORT=8090
+INITIAL_HEAP_SIZE=384m
+MAX_HEAP_SIZE=384m
+HEAP_DUMP_PATH=/var/bigbluebutton/diagnostics
+JDK_JAVA_OPTIONS="-Dgrails.cors.enabled=true -Dgrails.cors.allowCredentials=true -Dgrails.cors.allowedOrigins=https://{{ bbb_cluster_proxy_host }},https://{{ inventory_hostname }}"
