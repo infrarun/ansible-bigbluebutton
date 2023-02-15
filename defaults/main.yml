@@ -299,6 +299,9 @@ bbb_recordings_playback_protocol: https
 
 bbb_kurento_signal_candidates: true
 
+bbb_end_when_no_moderator: true
+bbb_end_when_no_moderator_in_minutes: 5
+
 bbb_java_version: "{{ bbb_java_version_table[ansible_distribution_version | replace('.', '_')] }}"
 bbb_java_version_table:
   "18_04": 8
