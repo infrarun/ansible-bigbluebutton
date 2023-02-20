@@ -122,6 +122,12 @@
     name: bbb-rap-resque-worker
     state: restarted
 
+- name: restart etherpad
+  become: true
+  systemd:
+    name: etherpad
+    state: restarted
+
 - name: update grub
   become: true
   command: update-grub
