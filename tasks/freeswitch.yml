@@ -82,7 +82,7 @@
     path: /opt/freeswitch/etc/freeswitch/autoload_configs/event_socket.conf.xml
     xpath: /configuration/settings/param[@name='listen-ip']
     attribute: "value"
-    value: "127.0.0.1"
+    value: "::1"
   notify: restart freeswitch
 
 - name: fix fs_clibbb to accept additional parameters
