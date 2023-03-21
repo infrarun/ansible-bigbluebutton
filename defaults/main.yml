@@ -318,4 +318,5 @@ bbb_mongodb_version_table:
   "18_04": 4.2
   "20_04": 4.4
 
+bbb_unified_turn: true
 

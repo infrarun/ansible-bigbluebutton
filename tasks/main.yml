@@ -3,6 +3,8 @@
 - import_tasks: installation.yml
 - import_tasks: mongodb.yml
 - import_tasks: nginx.yml
+- import_tasks: haproxy.yml
+  when: bbb_unified_turn
 - import_tasks: config.yml
 - import_tasks: kurento.yml
 - import_tasks: bbb-web.yml

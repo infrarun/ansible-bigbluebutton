@@ -4,6 +4,18 @@
   systemd:
     daemon_reload: true
 
+- name: reload haproxy
+  become: true
+  systemd:
+    name: haproxy
+    state: reloaded
+
+- name: restart haproxy
+  become: true
+  systemd:
+    name: haproxy
+    state: restarted
+
 - name: reload nginx
   become: true
   systemd:
@@ -131,3 +143,8 @@
 - name: update grub
   become: true
   command: update-grub
+
+- name: run dehydrated deploy hook
+  become: true
+  command: "/etc/dehydrated/hook.sh deploy_cert {{ item.name }} /var/lib/dehydrated/certs/{{ item.name }}/privkey.pem /var/lib/dehydrated/certs/{{ item.name }}/cert.pem /var/lib/dehydrated/certs/{{ item.name }}/fullchain.pem /var/lib/dehydrated/certs/{{ item.name }}/chain.pem"
+  loop: "{{ dehydrated__domain }}"

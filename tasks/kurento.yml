@@ -58,6 +58,15 @@
     line: 'pemCertificateRSA=/etc/kurento/dtls-srtp.pem'
   notify: restart kurento
 
+- name: create /opt/freeswitch/etc/freeswitch/tls/
+  become: true
+  file:
+    name: /opt/freeswitch/etc/freeswitch/tls
+    state: directory
+    owner: freeswitch
+    group: daemon
+    mode: "0700"
+
 - name: use DTLS-SRTP for freeswitch
   become: true
   copy:

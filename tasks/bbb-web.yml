@@ -18,6 +18,14 @@
     mode: 0644
   notify: restart bbb-web
 
+- name: template bbb-web defaults
+  become: true
+  template:
+    src: bbb-web/defaults
+    dest: /etc/default/bbb-web
+    mode: 0644
+  notify: restart bbb-web
+
 - name: template bbb-web.properties
   become: true
   template:
