@@ -30,7 +30,10 @@
 
 - name: restart bigbluebutton
   become: true
-  command: bbb-conf --restart
+  systemd:
+    name: bigbluebutton.target
+    state: restarted
+      # command: bbb-conf --restart
 
 - name: restart freeswitch
   become: true
