@@ -1,17 +1,18 @@
 ---
-- name: enable all available sites
-  become: true
-  file:
-    src: '/etc/nginx/sites-available'
-    dest: '/etc/nginx/sites-enabled'
-    state: link
-
 - name: template bbb nginx vhost
   become: true
   template:
     src: nginx/vhost.conf
-    dest: /etc/nginx/sites-available/bigbluebutton.conf
+    dest: /etc/nginx/sites-available/bigbluebutton
     mode: 0644
+  notify: reload nginx
+
+- name: symlink vhost
+  become: true
+  file:
+    src: "/etc/nginx/sites-available/bigbluebutton"
+    dest: "/etc/nginx/sites-enabled/bigbluebutton"
+    state: link
   notify: reload nginx
 
 - name: template bbb-html5 main config
