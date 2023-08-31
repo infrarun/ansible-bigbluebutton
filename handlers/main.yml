@@ -75,9 +75,7 @@
     state: restarted
   loop:
     - kurento-media-server
-    - kurento-media-server.target
   ignore_errors: true
-
 
 - name: stop kurento
   become: true
