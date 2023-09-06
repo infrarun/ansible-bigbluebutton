@@ -305,12 +305,12 @@ bbb_end_when_no_moderator_in_minutes: 5
 bbb_java_version: "{{ bbb_java_version_table[ansible_distribution_version | replace('.', '_')] }}"
 bbb_java_version_table:
   "18_04": 8
-  "20_04": 11
+  "20_04": 17
 
 bbb_nodejs_version: "{{ bbb_nodejs_version_table[ansible_distribution_version | replace('.', '_')] }}"
 bbb_nodejs_version_table:
   "18_04": 12
-  "20_04": 16
+  "20_04": 18
 
 
 bbb_mongodb_version: "{{ bbb_mongodb_version_table[ansible_distribution_version | replace('.', '_')] }}"
