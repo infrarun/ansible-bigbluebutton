@@ -4,6 +4,18 @@
   systemd:
     daemon_reload: true
 
+- name: reload haproxy
+  become: true
+  systemd:
+    name: haproxy
+    state: reloaded
+
+- name: restart haproxy
+  become: true
+  systemd:
+    name: haproxy
+    state: restarted
+
 - name: reload nginx
   become: true
   systemd:
@@ -18,7 +30,10 @@
 
 - name: restart bigbluebutton
   become: true
-  command: bbb-conf --restart
+  systemd:
+    name: bigbluebutton.target
+    state: restarted
+      # command: bbb-conf --restart
 
 - name: restart freeswitch
   become: true
@@ -60,9 +75,7 @@
     state: restarted
   loop:
     - kurento-media-server
-    - kurento-media-server.target
   ignore_errors: true
-
 
 - name: stop kurento
   become: true
@@ -122,6 +135,17 @@
     name: bbb-rap-resque-worker
     state: restarted
 
+- name: restart etherpad
+  become: true
+  systemd:
+    name: etherpad
+    state: restarted
+
 - name: update grub
   become: true
   command: update-grub
+
+- name: run dehydrated deploy hook
+  become: true
+  command: "/etc/dehydrated/hook.sh deploy_cert {{ item.name }} /var/lib/dehydrated/certs/{{ item.name }}/privkey.pem /var/lib/dehydrated/certs/{{ item.name }}/cert.pem /var/lib/dehydrated/certs/{{ item.name }}/fullchain.pem /var/lib/dehydrated/certs/{{ item.name }}/chain.pem"
+  loop: "{{ dehydrated__domain }}"

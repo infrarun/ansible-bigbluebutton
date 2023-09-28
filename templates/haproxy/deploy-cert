@@ -1,0 +1,6 @@
+#!/bin/bash -e
+
+DOMAIN="${1}" KEYFILE="${2}" FULLCHAINFILE="${4}"
+
+cat "${FULLCHAINFILE}" "${KEYFILE}" | install -m 0640 -o root -g haproxy /dev/stdin /etc/haproxy/certbundle.pem
+systemctl reload haproxy

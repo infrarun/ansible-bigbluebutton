@@ -17,6 +17,7 @@ location {{ bbb_html5client_prefix }}/html5client/locales {
 }
 
 location {{ bbb_html5client_prefix }}/html5client/compatibility {
+  gzip_static on;
   alias /usr/share/meteor/bundle/programs/web.browser/app/compatibility;
 }
 
@@ -30,6 +31,10 @@ location {{ bbb_html5client_prefix }}/html5client/svgs {
 
 location {{ bbb_html5client_prefix }}/html5client/fonts {
   alias /usr/share/meteor/bundle/programs/web.browser/app/fonts;
+}
+
+location {{ bbb_html5client_prefix }}/html5client/files {
+  alias /usr/share/meteor/bundle/programs/web.browser/app/files;
 }
 
 location {{ bbb_html5client_prefix }}/html5client/wasm {
@@ -46,3 +51,7 @@ location {{ bbb_html5client_prefix }}/html5client {
   try_files $uri @html5client;
 }
 
+location {{ bbb_html5client_prefix }}/html5client/sockjs {
+  try_files $uri @html5client;
+  limit_conn ws_zone 3;
+}

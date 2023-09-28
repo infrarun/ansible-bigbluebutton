@@ -1,0 +1,1 @@
+{ "bbbWebPublicAPI": "https://{{ inventory_hostname }}/bigbluebutton/" }

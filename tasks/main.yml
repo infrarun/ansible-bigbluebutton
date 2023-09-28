@@ -3,10 +3,13 @@
 - import_tasks: installation.yml
 - import_tasks: mongodb.yml
 - import_tasks: nginx.yml
+- import_tasks: haproxy.yml
+  when: bbb_unified_turn
 - import_tasks: config.yml
 - import_tasks: kurento.yml
 - import_tasks: bbb-web.yml
 - import_tasks: bbb-html5.yml
+- import_tasks: etherpad.yml
 - import_tasks: freeswitch.yml
 - import_tasks: webrtc-sfu.yml
 - import_tasks: stun-turn.yml

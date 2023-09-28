@@ -1,0 +1,10 @@
+---
+
+- name: add bbb-export-annotations.json config file for etherpad
+  become: true
+  template:
+    src: bbb-export-annotations.json
+    dest: /etc/bigbluebutton/bbb-export-annotations.json
+    mode: 0644
+  notify:
+    - restart etherpad

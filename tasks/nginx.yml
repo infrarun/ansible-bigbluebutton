@@ -1,81 +1,18 @@
 ---
-- block:
-  - name: create cert directory
-    become: true
-    file:
-      path: "/etc/letsencrypt/live/{{ bbb_hostname }}"
-      state: directory
-      mode: 0755
-
-  - name: deploy wildcard cert chain
-    become: true
-    copy:
-      src: "{{ bbb_wildcard_cert }}/fullchain.pem"
-      dest: "/etc/letsencrypt/live/{{ bbb_hostname }}/fullchain.pem"
-      mode: 0644
-    notify: reload nginx
-
-  - name: deploy wildcard cert key
-    become: true
-    copy:
-      src: "{{ bbb_wildcard_cert }}/privkey.pem"
-      dest: "/etc/letsencrypt/live/{{ bbb_hostname }}/privkey.pem"
-      mode: 0600
-    notify: reload nginx
-  when: bbb_wildcard_cert is defined
-
-- name: ensure nginx is enabled to start at boot
-  become: true
-  systemd:
-    name: nginx
-    enabled: true
-  notify: restart nginx
-
-- name: check if bbb_ssl_cert exists
-  become: true
-  stat:
-    path: "/etc/letsencrypt/live/{{ bbb_hostname }}/fullchain.pem"
-  register: bbbcert
-
-- block:
-  - name: install certbot
-    become: true
-    apt:
-      pkg: python3-certbot-nginx
-
-  - name: change Let's Encrypt API to v2
-    become: true
-    lineinfile:
-      path: /etc/letsencrypt/cli.ini
-      line: 'server = https://acme-v02.api.letsencrypt.org/directory'
-
-  - name: generate LE certificates
-    become: true
-    command: certbot certonly -d {{ bbb_hostname }} --register-unsafely-without-email --agree-tos -n --nginx
-    notify: reload nginx
-  when: not bbbcert.stat.exists
-
-- name: create ssl folder for nginx
-  become: true
-  file:
-    path: /etc/nginx/ssl
-    mode: 0755
-    state: directory
-
-- name: copy predefined DH group ffdhe2048
-  become: true
-  copy:
-    src: ffdhe4096.pem
-    dest: /etc/nginx/ssl/ffdhe4096.pem
-    mode: 0644
-  notify: reload nginx
-
 - name: template bbb nginx vhost
   become: true
   template:
     src: nginx/vhost.conf
     dest: /etc/nginx/sites-available/bigbluebutton
     mode: 0644
+  notify: reload nginx
+
+- name: symlink vhost
+  become: true
+  file:
+    src: "/etc/nginx/sites-available/bigbluebutton"
+    dest: "/etc/nginx/sites-enabled/bigbluebutton"
+    state: link
   notify: reload nginx
 
 - name: template bbb-html5 main config
@@ -108,11 +45,4 @@
     src: nginx/sip.nginx
     dest: /usr/share/bigbluebutton/nginx/sip.nginx
     mode: 0644
-  notify: reload nginx
-
-- name: disable default site
-  become: true
-  file:
-    name: /etc/nginx/sites-enabled/default
-    state: absent
   notify: reload nginx

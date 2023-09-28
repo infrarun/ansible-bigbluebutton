@@ -76,7 +76,7 @@
     value: "{{ bbb_freeswitch_socket_password }}"
   notify: restart freeswitch
 
-- name: set socket listen port
+- name: make sure listen-ip in event_socket.conf.xml stays ipv4-localhost
   become: true
   xml:
     path: /opt/freeswitch/etc/freeswitch/autoload_configs/event_socket.conf.xml
