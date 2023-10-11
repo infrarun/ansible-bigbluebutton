@@ -22,9 +22,6 @@
 - name: general bbb specific configurations
   ansible.builtin.import_tasks: config.yml
 
-- name: kurento specific configurations
-  ansible.builtin.import_tasks: kurento.yml
-
 - name: fixup and configuration for bbb-web service
   ansible.builtin.import_tasks: bbb-web.yml
 
