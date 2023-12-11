@@ -1,8 +1,0 @@
-- name: Create mountpoint goss test
-  become: true
-  ansible.builtin.template:
-    src: goss/bigbluebutton-mountpoint.yaml
-    dest: /etc/goss/tests.d/bigbluebutton-mountpoint.yaml
-    mode: "0644"
-  notify:
-    - Restart goss
