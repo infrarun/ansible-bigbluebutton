@@ -1,0 +1,5 @@
+command:
+  bbb-mountpoint:
+    title: The mountpoint used by BBB to store files must be accessible
+    exec: ls /var/bigbluebutton
+    exit-status: 0

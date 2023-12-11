@@ -149,3 +149,9 @@
   become: true
   command: "/etc/dehydrated/hook.sh deploy_cert {{ item.name }} /var/lib/dehydrated/certs/{{ item.name }}/privkey.pem /var/lib/dehydrated/certs/{{ item.name }}/cert.pem /var/lib/dehydrated/certs/{{ item.name }}/fullchain.pem /var/lib/dehydrated/certs/{{ item.name }}/chain.pem"
   loop: "{{ dehydrated__domain }}"
+
+- name: Restart goss
+  become: true
+  ansible.builtin.systemd:
+    name: goss
+    state: restarted
