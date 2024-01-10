@@ -12,6 +12,9 @@ bbb_turn_servers:
   secret: ""
   tls: false
 
+bbb_uid: 995
+bbb_gid: 996
+
 bbb_secret: "{{ bbb_api_key }}"
 bbb_webhooks_enable: false
 bbb_allow_mail_notifications: true
