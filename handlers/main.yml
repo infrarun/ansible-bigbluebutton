@@ -67,25 +67,6 @@
     name: mongod
     state: restarted
 
-- name: restart kurento
-  become: true
-  systemd:
-    name: "{{ item }}"
-    state: restarted
-  loop:
-    - kurento-media-server
-  ignore_errors: true
-
-- name: stop kurento
-  become: true
-  systemd:
-    name: "{{ item }}"
-    state: stopped
-  loop:
-    - kurento-media-server
-    - kurento-media-server.target
-  ignore_errors: true
-
 - name: restart bbb-html5
   become: true
   ansible.builtin.systemd:
