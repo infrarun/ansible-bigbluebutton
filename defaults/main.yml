@@ -271,6 +271,7 @@ bbb_meteor_cluster:
       basename: '/{{ bbb_hostname_short }}/html5client'
       bbbWebBase: 'https://{{ bbb_hostname }}/bigbluebutton'
       learningDashboardBase: 'https://{{ bbb_cluster_proxy_host }}/{{ bbb_hostname_short }}/learning-analytics-dashboard/'
+      graphqlUrl: wss://{{ bbb_hostname }}/v1/graphql
     media:
       stunTurnServersFetchAddress: 'https://{{ bbb_hostname }}/bigbluebutton/api/stuns'
       sip_ws_host: '{{ bbb_hostname }}'
