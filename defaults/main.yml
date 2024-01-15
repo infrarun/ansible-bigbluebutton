@@ -31,73 +31,7 @@ bbb_repo_version: "230"
 
 bbb_welcome_message_footer: "Um dieser Konferenz per Telefon beizutreten, w&auml;hlen Sie <tt>%%DIALNUM%%</tt> und geben <tt>%%CONFNUM%%</tt> als Konferenz-PIN ein.<br><br><b>Hinweis:</b> Anrufer sind ggf. stummgeschaltet. Dr&uuml;cken Sie <tt>0</tt> um zu sprechen bzw. sich stummzuschalten.'"
 
-bbb_webrtc_sfu_singlekurento:
-  balancing-strategy: ROUND_ROBIN
-  kurento:
-    - ip: "{{ ansible_default_ipv4.address }}"
-      url: ws://127.0.0.1:8888/kurento
-      mediaType: main
-      ipClassMappings:
-        local: ''
-        private: ''
-        public: ''
-      options:
-        failAfter: 5
-        request_timeout: 30000
-        response_timeout: 30000
-  freeswitch:
-    ip: "{{ ansible_default_ipv4.address }}"
-    sip_ip: "{{ ansible_default_ipv4.address }}"
-    esl_password: "{{ bbb_freeswitch_socket_password }}"
-  log:
-    level: warn
-    filename: /dev/stderr
-
-bbb_webrtc_sfu_multikurento:
-  balancing-strategy: MEDIA_TYPE
-  kurento:
-    - ip: "{{ ansible_default_ipv4.address }}"
-      url: ws://127.0.0.1:8888/kurento
-      mediaType: main
-      ipClassMappings:
-        local: ''
-        private: ''
-        public: ''
-      options:
-        failAfter: 5
-        request_timeout: 30000
-        response_timeout: 30000
-    - ip: "{{ ansible_default_ipv4.address }}"
-      url: ws://127.0.0.1:8889/kurento
-      mediaType: audio
-      ipClassMappings:
-        local: ''
-        private: ''
-        public: ''
-      options:
-        failAfter: 5
-        request_timeout: 30000
-        response_timeout: 30000
-    - ip: "{{ ansible_default_ipv4.address }}"
-      url: ws://127.0.0.1:8890/kurento
-      mediaType: content
-      ipClassMappings:
-        local: ''
-        private: ''
-        public: ''
-      options:
-        failAfter: 5
-        request_timeout: 30000
-        response_timeout: 30000
-  freeswitch:
-    ip: "{{ ansible_default_ipv4.address }}"
-    sip_ip: "{{ ansible_default_ipv4.address }}"
-    esl_password: "{{ bbb_freeswitch_socket_password }}"
-  log:
-    level: warn
-    filename: /dev/stderr
-
-bbb_webrtc_sfu_mediasoup:
+bbb_webrtc_sfu_config:
   balancing-strategy: ROUND_ROBIN
   fullAudioEnabled: true
   videoMediaServer: mediasoup
@@ -118,18 +52,6 @@ bbb_webrtc_sfu_mediasoup:
           announcedIp: "{{ ansible_default_ipv4.address }}"
         - ip: "::"
           announcedIp: "{{ ansible_default_ipv6.address }}"
-  kurento:
-    - ip: "{{ ansible_default_ipv4.address }}"
-      url: ws://127.0.0.1:8888/kurento
-      mediaType: main
-      ipClassMappings:
-        local: ""
-        private: ""
-        public: ""
-      options:
-        failAfter: 5
-        request_timeout: 30000
-        response_timeout: 30000
   freeswitch:
     ip: "{{ ansible_default_ipv4.address }}"
     sip_ip: "{{ ansible_default_ipv4.address }}"
@@ -277,8 +199,6 @@ bbb_meteor_cluster:
       sip_ws_host: '{{ bbb_hostname }}'
     presentation:
       uploadEndpoint: 'https://{{ bbb_hostname }}/bigbluebutton/presentation/upload'
-
-bbb_webrtc_sfu_config: "{{ bbb_webrtc_sfu_multikurento }}"
 
 bbb_html5_backend_processes: 1
 bbb_html5_frontend_processes: 1
