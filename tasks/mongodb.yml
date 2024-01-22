@@ -1,25 +1,5 @@
 ---
 
-- name: Ensure mongodb4+ does not use nojournal - systemd
-  become: true
-  replace:
-    dest: /etc/systemd/system/mongod.service
-    regexp: ' --nojournal$'
-    replace: ''
-    backup: true
-  notify:
-    - reload systemd
-    - restart mongo
-
-- name: Ensure mongodb4+ does not use nojournal - config
-  become: true
-  template:
-    src: mongo4-ramdisk.conf
-    dest: /usr/share/meteor/bundle/mongo-ramdisk.conf
-    mode: 0644
-  notify:
-    - restart mongo
-
 - name: fix tmpfs size for mongodb
   become: true
   ansible.builtin.lineinfile:
