@@ -10,8 +10,8 @@
 - name: symlink vhost
   become: true
   file:
-    src: "/etc/nginx/sites-available/bigbluebutton"
-    dest: "/etc/nginx/sites-enabled/bigbluebutton"
+    src: /etc/nginx/sites-available/bigbluebutton
+    dest: /etc/nginx/sites-enabled/bigbluebutton
     state: link
   notify: reload nginx
 
