@@ -13,7 +13,6 @@
 - import_tasks: etherpad.yml
 - import_tasks: freeswitch.yml
 - import_tasks: webrtc-sfu.yml
-- import_tasks: stun-turn.yml
 - import_tasks: thp.yml
 - import_tasks: recording.yml
 
