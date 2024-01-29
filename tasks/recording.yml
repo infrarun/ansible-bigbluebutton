@@ -3,7 +3,7 @@
 ## on https://github.com/bigbluebutton/bigbluebutton/issues/14304
 - name: write custom recording configuration
   become: true
-  template:
+  ansible.builtin.template:
     src: bbb-record/{{ item }}
     dest: /usr/local/bigbluebutton/core/scripts/{{ item }}
     mode: 0644

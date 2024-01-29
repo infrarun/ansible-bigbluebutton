@@ -1,7 +1,7 @@
 ---
 - name: install haproxy
   become: true
-  apt:
+  ansible.builtin.apt:
     pkg: haproxy
 
 - name: template haproxy config

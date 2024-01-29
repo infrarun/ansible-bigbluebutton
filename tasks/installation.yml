@@ -2,25 +2,25 @@
 
 - name: install dependencies
   become: true
-  apt:
+  ansible.builtin.apt:
     name: ["language-pack-en", "software-properties-common", "mongodb-org", "nodejs", "docker.io", "openjdk-{{ bbb_java_version }}-jre-headless"]
     update_cache: true
 
 - name: set version of java to use
   become: true
-  file:
+  ansible.builtin.file:
     src: "/usr/lib/jvm/java-{{ bbb_java_version }}-openjdk-amd64/bin/java"
     dest: /etc/alternatives/java
     state: link
 
 - name: install bbb
   become: true
-  apt:
-    name: ["bigbluebutton"]
+  ansible.builtin.apt:
+    name: bigbluebutton
 
 - name: install extra or updated packages
   become: true
-  apt:
+  ansible.builtin.apt:
     deb: "{{ item }}"
   loop: "{{ bbb_additional_packages }}"
   when: bbb_additional_packages is defined

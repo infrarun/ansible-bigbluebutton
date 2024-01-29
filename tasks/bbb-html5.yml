@@ -2,13 +2,13 @@
 
 - name: mix cluster config into bbb_metor
   become: true
-  set_fact:
+  ansible.builtin.set_fact:
      bbb_meteor: '{{ bbb_meteor | combine(bbb_meteor_cluster, recursive=True) }}'
   when: bbb_cluster_proxy_host | length > 0
 
 - name: write custom meteor config
   become: true
-  copy:
+  ansible.builtin.copy:
     content: '{{ bbb_meteor | to_nice_yaml }}'
     dest: /etc/bigbluebutton/bbb-html5.yml
     mode: 0644
@@ -17,7 +17,7 @@
 
 - name: increase max-old-space-size in frontends to 4096
   become: true
-  replace:
+  ansible.builtin.replace:
     path: /usr/share/meteor/bundle/systemd_start_frontend.sh
     regexp: '(--max-old-space-size)=(\d*)'
     replace: '\1=4096'
@@ -26,7 +26,7 @@
 
 - name: create bbb-html5 service override directories
   become: true
-  file:
+  ansible.builtin.file:
     state: directory
     path: /etc/systemd/system/{{ item }}.d
     mode: 0755
@@ -36,7 +36,7 @@
 
 - name: deploy bbb-html5-frontend@ service generic override configuration
   become: true
-  template:
+  ansible.builtin.template:
     src: bbb-html5-frontend@.override
     dest: /etc/systemd/system/bbb-html5-{{ item }}@.service.d/override.conf
     mode: 0644
@@ -49,7 +49,7 @@
 
 - name: deploy bbb-html5-frontend@ and bbb-html5-backend@ service cluster override configuration
   become: true
-  template:
+  ansible.builtin.template:
     src: bbb-html5/cluster.conf
     dest: /etc/systemd/system/bbb-html5-{{ item }}@.service.d/cluster.conf
     mode: 0644
@@ -63,7 +63,7 @@
 
 - name: set amount of html5 back- and frontends
   become: true
-  template:
+  ansible.builtin.template:
     src: bbb-html5/bbb-html5-with-roles.conf
     dest: /etc/bigbluebutton/bbb-html5-with-roles.conf
     mode: 0644

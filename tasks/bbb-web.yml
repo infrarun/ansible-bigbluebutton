@@ -2,7 +2,7 @@
 
 - name: set correct owner for bbb-web files
   become: true
-  file:
+  ansible.builtin.file:
     dest: /usr/share/bbb-web/
     owner: root
     group: root
@@ -12,7 +12,7 @@
 
 - name: configure bbb-web application settings
   become: true
-  template:
+  ansible.builtin.template:
     src: bbb-web/logback.xml
     dest: /usr/share/bbb-web/WEB-INF/classes/logback.xml
     mode: 0644
@@ -20,7 +20,7 @@
 
 - name: template bbb-web defaults
   become: true
-  template:
+  ansible.builtin.template:
     src: bbb-web/defaults
     dest: /etc/default/bbb-web
     mode: 0644
@@ -28,7 +28,7 @@
 
 - name: template bbb-web.properties
   become: true
-  template:
+  ansible.builtin.template:
     src: bbb-web/bbb-web.properties
     dest: /etc/bigbluebutton/bbb-web.properties
     owner: bigbluebutton

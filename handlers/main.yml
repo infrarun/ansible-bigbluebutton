@@ -1,69 +1,69 @@
 ---
 - name: reload systemd
   become: true
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: true
 
 - name: reload haproxy
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: haproxy
     state: reloaded
 
 - name: restart haproxy
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: haproxy
     state: restarted
 
 - name: reload nginx
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: nginx
     state: reloaded
 
 - name: restart nginx
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: nginx
     state: restarted
 
 - name: restart bigbluebutton
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: bigbluebutton.target
     state: restarted
 
 - name: restart freeswitch
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: freeswitch
     state: restarted
 
 - name: reload freeswitch xml
   become: true
-  command:
+  ansible.builtin.command:
     cmd: "fs_clibbb -x 'reloadxml'"
 
 - name: reload freeswitch acls
   become: true
-  command:
+  ansible.builtin.command:
     cmd: "fs_clibbb -x 'reloadacl'"
 
 - name: restart sofia dialin profile
   become: true
-  command:
+  ansible.builtin.command:
     cmd: "fs_clibbb -x 'sofia profile dialin start'"
 
 - name: stop mongo
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: mongod
     state: stopped
 
 - name: restart mongo
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: mongod
     state: restarted
 
@@ -88,63 +88,63 @@
 
 - name: restart bbb-html5
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: bbb-html5
     state: restarted
 
 - name: restart bbb-web
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: bbb-web
     state: restarted
 
 - name: reload bbb-web
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: bbb-web
     state: reloaded
 
 - name: restart bbb-webrtc-sfu
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: bbb-webrtc-sfu
     state: restarted
 
 - name: restart bbb-apps-akka
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: bbb-apps-akka
     state: restarted
 
 - name: reload apparmor
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: apparmor
     state: reloaded
 
 - name: restart bbb-rap-caption-inbox
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: bbb-rap-caption-inbox
     state: restarted
 
 - name: restart bbb-rap-resque-worker
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: bbb-rap-resque-worker
     state: restarted
 
 - name: restart etherpad
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: etherpad
     state: restarted
 
 - name: update grub
   become: true
-  command: update-grub
+  ansible.builtin.command: update-grub
 
 - name: run dehydrated deploy hook
   become: true
-  command: "/etc/dehydrated/hook.sh deploy_cert {{ item.name }} /var/lib/dehydrated/certs/{{ item.name }}/privkey.pem /var/lib/dehydrated/certs/{{ item.name }}/cert.pem /var/lib/dehydrated/certs/{{ item.name }}/fullchain.pem /var/lib/dehydrated/certs/{{ item.name }}/chain.pem"
+  ansible.builtin.command: "/etc/dehydrated/hook.sh deploy_cert {{ item.name }} /var/lib/dehydrated/certs/{{ item.name }}/privkey.pem /var/lib/dehydrated/certs/{{ item.name }}/cert.pem /var/lib/dehydrated/certs/{{ item.name }}/fullchain.pem /var/lib/dehydrated/certs/{{ item.name }}/chain.pem"
   loop: "{{ dehydrated__domain }}"

@@ -1,7 +1,7 @@
 ---
 - name: template bbb nginx vhost
   become: true
-  template:
+  ansible.builtin.template:
     src: nginx/vhost.conf
     dest: /etc/nginx/sites-available/bigbluebutton
     mode: 0644
@@ -9,7 +9,7 @@
 
 - name: symlink vhost
   become: true
-  file:
+  ansible.builtin.file:
     src: /etc/nginx/sites-available/bigbluebutton
     dest: /etc/nginx/sites-enabled/bigbluebutton
     state: link
@@ -17,7 +17,7 @@
 
 - name: template bbb-html5 main config
   become: true
-  template:
+  ansible.builtin.template:
     src: nginx/bbb-html5.nginx
     dest: /usr/share/bigbluebutton/nginx/bbb-html5.nginx
     mode: 0644
@@ -25,7 +25,7 @@
 
 - name: template bbb loadbalancer config
   become: true
-  template:
+  ansible.builtin.template:
     src: nginx/loadbalancer.nginx
     dest: /usr/share/bigbluebutton/nginx/loadbalancer.nginx
     mode: 0644
@@ -33,7 +33,7 @@
 
 - name: template ip mapping for BBB
   become: true
-  template:
+  ansible.builtin.template:
     src: nginx/bigbluebutton_sip_addr_map.conf
     dest: /etc/nginx/conf.d/bigbluebutton_sip_addr_map.conf
     mode: 0644
@@ -41,7 +41,7 @@
 
 - name: template bbb sip nginx config
   become: true
-  template:
+  ansible.builtin.template:
     src: nginx/sip.nginx
     dest: /usr/share/bigbluebutton/nginx/sip.nginx
     mode: 0644

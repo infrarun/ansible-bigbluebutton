@@ -2,7 +2,7 @@
 
 - name: add repository keys
   become: true
-  apt_key:
+  ansible.builtin.apt_key:
     url: "{{ item.url }}"
     id: "{{ item.id }}"
   loop:
@@ -18,9 +18,8 @@
 
 - name: add repositories
   become: true
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: "{{ item }}"
-    mode: 0644
   with_items:
     - "deb https://ubuntu.bigbluebutton.org/{{ adr }}-{{ bbb_repo_version }}/ bigbluebutton-{{ adr }} main"
     - "deb http://repo.mongodb.org/apt/ubuntu/ {{ adr }}/mongodb-org/{{ bbb_mongodb_version }} multiverse"

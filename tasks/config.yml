@@ -1,7 +1,7 @@
 ---
 - name: Update /etc/bigbluebutton akka configs
   become: true
-  template:
+  ansible.builtin.template:
     src: "{{ item }}"
     dest: "/etc/bigbluebutton/{{ item }}"
     owner: bigbluebutton
@@ -14,7 +14,7 @@
 
 - name: Update /etc/bigbluebutton/turn-stun-servers.xml
   become: true
-  template:
+  ansible.builtin.template:
     src: turn-stun-servers.xml
     dest: /etc/bigbluebutton/turn-stun-servers.xml
     owner: bigbluebutton
@@ -24,7 +24,7 @@
 
 - name: set default presentation
   become: true
-  copy:
+  ansible.builtin.copy:
     src: "{{ bbb_custom_presentation }}"
     dest: "/var/www/bigbluebutton-default/{{ bbb_custom_presentation_name | default(bbb_custom_presentation) }}"
     mode: 0644
