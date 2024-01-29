@@ -6,7 +6,7 @@
     dest: "/etc/bigbluebutton/{{ item }}"
     owner: bigbluebutton
     group: root
-    mode: '0600'
+    mode: 0600
   loop:
     - bbb-apps-akka.conf
     - bbb-fsesl-akka.conf
@@ -19,7 +19,7 @@
     dest: /etc/bigbluebutton/turn-stun-servers.xml
     owner: bigbluebutton
     group: root
-    mode: '0600'
+    mode: 0600
   notify: restart bigbluebutton
 
 - name: set default presentation
