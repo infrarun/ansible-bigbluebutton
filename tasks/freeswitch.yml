@@ -1,11 +1,11 @@
 - name: install AppArmor packages
   become: true
-  package:
+  ansible.builtin.apt:
     name: ['apparmor-utils', 'auditd']
 
 - name: create AppArmor rules
   become: true
-  template:
+  ansible.builtin.template:
     src: opt.freeswitch.bin.freeswitch
     dest: /etc/apparmor.d/opt.freeswitch.bin.freeswitch
     mode: 0600
@@ -15,7 +15,7 @@
 
 - name: fix freeswitch systemd service permissions
   become: true
-  file:
+  ansible.builtin.file:
     path: /lib/systemd/system/freeswitch.service
     mode: 0644
     owner: root
@@ -23,7 +23,7 @@
 
 - name: ensure ipv6 binding is to primary v6 address
   become: true
-  lineinfile:
+  ansible.builtin.lineinfile:
     insertafter: "X-PRE-PROCESS\\s*cmd=\"set\"\\s*data=\"local_ip_v4="
     regex: "X-PRE-PROCESS\\s*cmd=\"set\"\\s*data=\"local_ip_v6="
     line: "  <X-PRE-PROCESS cmd=\"set\" data=\"local_ip_v6={{ ansible_default_ipv6.address }}\"/>"
@@ -32,14 +32,14 @@
 
 - name: delete freeswitch file logging config
   become: true
-  file:
+  ansible.builtin.file:
     path: /opt/freeswitch/etc/freeswitch/autoload_configs/logfile.conf.xml
     state: absent
   notify: restart freeswitch
 
 - name: add freeswitch module config
   become: true
-  template:
+  ansible.builtin.template:
     src: modules.conf.xml
     dest: /opt/freeswitch/etc/freeswitch/autoload_configs/modules.conf.xml
     mode: 0644
@@ -49,7 +49,7 @@
 
 - name: add freeswitch syslog config
   become: true
-  template:
+  ansible.builtin.template:
     src: syslog.conf.xml
     dest: /opt/freeswitch/etc/freeswitch/autoload_configs/syslog.conf.xml
     mode: 0644
@@ -59,7 +59,7 @@
 
 - name: deploy conference config
   become: true
-  template:
+  ansible.builtin.template:
     src: conference.conf.xml
     dest: /opt/freeswitch/etc/freeswitch/autoload_configs/conference.conf.xml
     mode: 0644
@@ -69,7 +69,7 @@
 
 - name: set socket password
   become: true
-  xml:
+  ansible.builtin.xml:
     path: /opt/freeswitch/etc/freeswitch/autoload_configs/event_socket.conf.xml
     xpath: /configuration/settings/param[@name='password']
     attribute: "value"
@@ -78,7 +78,7 @@
 
 - name: make sure listen-ip in event_socket.conf.xml stays ipv4-localhost
   become: true
-  xml:
+  ansible.builtin.xml:
     path: /opt/freeswitch/etc/freeswitch/autoload_configs/event_socket.conf.xml
     xpath: /configuration/settings/param[@name='listen-ip']
     attribute: "value"
@@ -87,14 +87,14 @@
 
 - name: fix fs_clibbb to accept additional parameters
   become: true
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /usr/local/bin/fs_clibbb
     regexp: "^/opt/freeswitch/bin/fs_cli"
     line: "/opt/freeswitch/bin/fs_cli -p $(xmlstarlet sel -t -m 'configuration/settings/param[@name=\"password\"]' -v @value /opt/freeswitch/etc/freeswitch/autoload_configs/event_socket.conf.xml) \"$@\""
 
 - name: fix jitterbuffer settings
   become: true
-  replace:
+  ansible.builtin.replace:
     path: "/opt/freeswitch/etc/freeswitch/dialplan/default/{{ item }}"
     regexp: data="120"
     replace: data="60:120"
@@ -106,7 +106,7 @@
 
 - name: configure different mute/unmute sounds
   become: true
-  copy:
+  ansible.builtin.copy:
     src: "sounds/muteunmute/{{ item }}"
     dest: "/opt/freeswitch/share/freeswitch/sounds/en/us/callie/conference/{{ item }}"
     mode: 0644

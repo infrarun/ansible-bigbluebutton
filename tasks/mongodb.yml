@@ -22,7 +22,7 @@
 
 - name: fix tmpfs size for mongodb
   become: true
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /usr/share/meteor/bundle/mongod_start_pre.sh
     regexp: "^  mount -t tmpfs"
     line: "  mount -t tmpfs -o size={{ bbb_mongodb_tempfssize }} tmpfs /mnt/mongo-ramdisk"
@@ -32,7 +32,7 @@
 
 - name: Ensure mongod is started and enabled to start at boot.
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: mongod
     enabled: true
     state: started
