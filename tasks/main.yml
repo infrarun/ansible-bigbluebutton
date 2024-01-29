@@ -1,20 +1,51 @@
 ---
-- import_tasks: repositories.yml
-- import_tasks: user.yml
-- import_tasks: installation.yml
-- import_tasks: mongodb.yml
-- import_tasks: nginx.yml
-- import_tasks: haproxy.yml
-  when: bbb_unified_turn
-- import_tasks: config.yml
-- import_tasks: kurento.yml
-- import_tasks: bbb-web.yml
-- import_tasks: bbb-html5.yml
-- import_tasks: etherpad.yml
-- import_tasks: freeswitch.yml
-- import_tasks: webrtc-sfu.yml
-- import_tasks: thp.yml
-- import_tasks: recording.yml
 
-- import_tasks: dialin.yml
+- name: add ansible specific repositorys
+  ansible.builtin.import_tasks: repositories.yml
+
+- name: create bbb user and group for consistent uid/gid
+  ansible.builtin.import_tasks: user.yml
+
+- name: installation of bbb and dependencies
+  ansible.builtin.import_tasks: installation.yml
+
+- name: mongodb related fixups
+  ansible.builtin.import_tasks: mongodb.yml
+
+- name: configure nginx
+  ansible.builtin.import_tasks: nginx.yml
+
+- name: install and configure haproxy for turn / http traffic routing
+  ansible.builtin.import_tasks: haproxy.yml
+  when: bbb_unified_turn
+
+- name: general bbb specific configurations
+  ansible.builtin.import_tasks: config.yml
+
+- name: kurento specific configurations
+  ansible.builtin.import_tasks: kurento.yml
+
+- name: fixup and configuration for bbb-web service
+  ansible.builtin.import_tasks: bbb-web.yml
+
+- name: fixup and configuration for bbb-html5 (cluster)service
+  ansible.builtin.import_tasks: bbb-html5.yml
+
+- name: configure etherpad export option
+  ansible.builtin.import_tasks: etherpad.yml
+
+- name: fixup, hardening and configuration of freeswitch service
+  ansible.builtin.import_tasks: freeswitch.yml
+
+- name: configure webrtc-sfu service
+  ansible.builtin.import_tasks: webrtc-sfu.yml
+
+- name: disable transparent huge pages
+  ansible.builtin.import_tasks: thp.yml
+
+- name: configuration of conference recording
+  ansible.builtin.import_tasks: recording.yml
+
+- name: configuration of SIP dialin
+  ansible.builtin.import_tasks: dialin.yml
   when: bbb_sipgw is defined or bbb_sip_account is defined
