@@ -4,13 +4,13 @@ bbb_hostname_short: "{{ inventory_hostname_short }}"
 bbb_nginx_privacy: true
 
 bbb_stun_servers:
-- server: ""
+  - server: ""
 bbb_ice_servers: []
 bbb_turn_servers:
-- server: ""
-  port: ""
-  secret: ""
-  tls: false
+  - server: ""
+    port: ""
+    secret: ""
+    tls: false
 
 bbb_uid: 995
 bbb_gid: 996
@@ -317,11 +317,9 @@ bbb_nodejs_version_table:
   "18_04": 12
   "20_04": 18
 
-
 bbb_mongodb_version: "{{ bbb_mongodb_version_table[ansible_distribution_version | replace('.', '_')] }}"
 bbb_mongodb_version_table:
   "18_04": 4.2
   "20_04": 4.4
 
 bbb_unified_turn: true
-
