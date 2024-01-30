@@ -10,8 +10,8 @@
     dest: /etc/apparmor.d/opt.freeswitch.bin.freeswitch
     mode: 0600
   notify:
-   - reload apparmor
-   - restart freeswitch
+    - reload apparmor
+    - restart freeswitch
 
 - name: fix freeswitch systemd service permissions
   become: true
