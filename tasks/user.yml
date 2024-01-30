@@ -14,6 +14,6 @@
     uid: "{{ bbb_uid }}"
     group: bigbluebutton
     shell: /bin/false
-    home: /home/bigbluebutton
-    createhome: yes
+    home: /var/bigbluebutton
+    createhome: true
     system: true
