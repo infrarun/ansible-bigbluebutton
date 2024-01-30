@@ -17,8 +17,8 @@
     - conferenceExists
     - conferenceMutedOnStart
 
-- set_fact:
-    sip_mode: "{{ 'gateway' if bbb_sipgw is defined else 'standalone'}}"
+- ansible.builtin.set_fact:
+    sip_mode: "{{ 'gateway' if bbb_sipgw is defined else 'standalone' }}"
 
 - name: create sip profile
   become: true
