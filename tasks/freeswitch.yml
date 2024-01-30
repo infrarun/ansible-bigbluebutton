@@ -102,7 +102,7 @@
     - bbb_conference.xml
     - bbb_echo_to_conference.xml
 
-- meta: flush_handlers
+- ansible.builtin.meta: flush_handlers
 
 - name: configure different mute/unmute sounds
   become: true
