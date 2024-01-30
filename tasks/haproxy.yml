@@ -6,7 +6,7 @@
 
 - name: template haproxy config
   become: true
-  template:
+  ansible.builtin.template:
     src: "{{ item }}"
     dest: "/etc/{{ item }}"
     mode: 0644
@@ -17,7 +17,7 @@
 
 - name: template haproxy dehydrated hook
   become: true
-  template:
+  ansible.builtin.template:
     src: haproxy/deploy-cert
     dest: /etc/dehydrated/hooks.d/deploy-cert-haproxy
     group: root
@@ -26,14 +26,13 @@
 
 - name: ensure haproxy is enabled to start at boot
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: haproxy
     enabled: true
   notify: restart haproxy
 
 - name: check if bbb_ssl_cert exists
   become: true
-  stat:
+  ansible.builtin.stat:
     path: "/etc/letsencrypt/live/{{ bbb_hostname }}/fullchain.pem"
   register: bbbcert
-
