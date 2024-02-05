@@ -28,6 +28,9 @@
 - name: fixup and configuration for bbb-html5 (cluster)service
   ansible.builtin.import_tasks: bbb-html5.yml
 
+- name: configuration for bbb-graphql service
+  ansible.builtin.import_tasks: bbb-graphql.yml
+
 - name: configure etherpad export option
   ansible.builtin.import_tasks: etherpad.yml
 
