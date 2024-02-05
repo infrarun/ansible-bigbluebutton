@@ -91,6 +91,12 @@
     name: bbb-webrtc-sfu
     state: restarted
 
+- name: restart bbb-graphql-middleware
+  become: true
+  ansible.builtin.systemd:
+    name: bbb-graphql-middleware
+    state: restarted
+
 - name: restart bbb-apps-akka
   become: true
   ansible.builtin.systemd:

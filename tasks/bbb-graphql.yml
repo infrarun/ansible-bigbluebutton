@@ -1,0 +1,8 @@
+---
+- name: configure bbb-graphql-middleware settings
+  become: true
+  ansible.builtin.template:
+    src: bbb-graphql-middleware
+    dest: /etc/default/bbb-graphql-middleware
+    mode: 0644
+  notify: restart bbb-graphql-middleware
