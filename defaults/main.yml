@@ -136,7 +136,7 @@ bbb_webrtc_sfu_mediasoup:
     esl_password: "{{ bbb_freeswitch_socket_password }}"
   log:
     level: warn
-    filename: /dev/stderr
+    file: false
 
 bbb_meteor:
   public:
