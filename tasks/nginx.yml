@@ -46,3 +46,11 @@
     dest: /usr/share/bigbluebutton/nginx/sip.nginx
     mode: 0644
   notify: reload nginx
+
+- name: template metrics nginx config
+  become: true
+  ansible.builtin.template:
+    src: nginx/internalmetrics.nginx
+    dest: /usr/share/bigbluebutton/nginx/internalmetrics.nginx
+    mode: 0644
+  notify: reload nginx
