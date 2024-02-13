@@ -1,0 +1,45 @@
+location /bbb-metrics-core {
+        proxy_pass http://[::1]:3014/metrics;
+{% if bbb_metrics_allowlist is defined %}
+{% for host in bbb_metrics_allowlist %}
+        allow {{ host }};
+{% endfor %}
+        deny all;
+{% endif %}
+}
+location /bbb-metrics-main {
+        proxy_pass http://[::1]:3016/metrics;
+{% if bbb_metrics_allowlist is defined %}
+{% for host in bbb_metrics_allowlist %}
+        allow {{ host }};
+{% endfor %}
+        deny all;
+{% endif %}
+}
+location /bbb-metrics-screenshare {
+        proxy_pass http://[::1]:3022/metrics;
+{% if bbb_metrics_allowlist is defined %}
+{% for host in bbb_metrics_allowlist %}
+        allow {{ host }};
+{% endfor %}
+        deny all;
+{% endif %}
+}
+location /bbb-metrics-audio {
+        proxy_pass http://[::1]:3024/metrics;
+{% if bbb_metrics_allowlist is defined %}
+{% for host in bbb_metrics_allowlist %}
+        allow {{ host }};
+{% endfor %}
+        deny all;
+{% endif %}
+}
+location /bbb-metrics-video {
+        proxy_pass http://[::1]:3024/metrics;
+{% if bbb_metrics_allowlist is defined %}
+{% for host in bbb_metrics_allowlist %}
+        allow {{ host }};
+{% endfor %}
+        deny all;
+{% endif %}
+}
