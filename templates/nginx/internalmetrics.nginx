@@ -35,7 +35,7 @@ location /bbb-metrics-audio {
 {% endif %}
 }
 location /bbb-metrics-video {
-        proxy_pass http://[::1]:3024/metrics;
+        proxy_pass http://[::1]:3026/metrics;
 {% if bbb_metrics_allowlist is defined %}
 {% for host in bbb_metrics_allowlist %}
         allow {{ host }};
