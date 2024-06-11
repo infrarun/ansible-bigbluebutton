@@ -13,3 +13,10 @@
   notify:
     - restart bbb-rap-caption-inbox
     - restart bbb-rap-resque-worker
+
+- name: deploy recording locator script
+  become: true
+  copy:
+    src: locate_recording.sh
+    dest: /usr/local/bin/locate_recording.sh
+    mode: 0755
