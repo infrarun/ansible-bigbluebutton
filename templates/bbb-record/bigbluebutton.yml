@@ -4,6 +4,8 @@ kurento_video_src: /var/kurento/recordings
 kurento_screenshare_src: /var/kurento/screenshare
 mediasoup_video_src: /var/mediasoup/recordings
 mediasoup_screenshare_src: /var/mediasoup/screenshare
+webrtc_recorder_video_src: /var/lib/bbb-webrtc-recorder/recordings
+webrtc_recorder_screenshare_src: /var/lib/bbb-webrtc-recorder/screenshare
 raw_deskshare_src: /var/bigbluebutton/deskshare
 raw_presentation_src: /var/bigbluebutton
 notes_endpoint: http://127.0.0.1:9002/p
@@ -49,8 +51,11 @@ show_moderator_viewpoint: false
 steps:
   archive: "sanity"
   sanity: "captions"
-  captions: "process:presentation"
+  captions:
+    - "process:presentation"
+    - "process:video"
   "process:presentation": "publish:presentation"
+  "process:video": "publish:video"
 # For PRODUCTION
 log_dir: /var/log/bigbluebutton
 events_dir: /var/bigbluebutton/events
