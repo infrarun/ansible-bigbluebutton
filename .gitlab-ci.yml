@@ -1,0 +1,2 @@
+include:
+  - component: $CI_SERVER_FQDN/infra.run/gitlab-ci-components/pipeline/ansible-role@~latest
