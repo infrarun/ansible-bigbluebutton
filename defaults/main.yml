@@ -235,6 +235,15 @@ bbb_meteor:
           width: 1920
           height: 1080
           frameRate: 25
+      - id: fhd
+        name: Camera as content
+        hidden: true
+        default: false
+        bitrate: 1500
+        constraints:
+          width: 1920
+          height: 1080
+          frameRate: 25
 
       cameraQualityThresholds:
         enabled: true
