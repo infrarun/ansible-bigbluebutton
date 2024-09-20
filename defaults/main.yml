@@ -175,12 +175,11 @@ bbb_meteor:
         name: Camera as content
         hidden: true
         default: false
-        bitrate: 1500
+        bitrate: 2500
         constraints:
           width: 1920
           height: 1080
           frameRate: 25
-
       cameraQualityThresholds:
         enabled: true
         thresholds:
@@ -209,6 +208,8 @@ bbb_meteor:
         mobilePageSizes:
           moderator: 8
           viewer: 8
+    whiteboard:
+      maxNumberOfAnnotations: 500
 
 bbb_meteor_cluster:
   public:
