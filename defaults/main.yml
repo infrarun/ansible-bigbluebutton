@@ -165,6 +165,7 @@ bbb_meteor:
     media:
       audio:
         defaultFullAudioBridge: fullaudio
+      transparentListenOnly: true
       sipjsHackViaWs: true
     kurento:
       wsUrl: "wss://{{ bbb_hostname }}/bbb-webrtc-sfu"
