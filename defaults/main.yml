@@ -51,7 +51,8 @@ bbb_webrtc_sfu_singlekurento:
     esl_password: "{{ bbb_freeswitch_socket_password }}"
   log:
     level: warn
-    filename: /dev/stderr
+    stdout: true
+    file: false
 
 bbb_webrtc_sfu_multikurento:
   balancing-strategy: MEDIA_TYPE
