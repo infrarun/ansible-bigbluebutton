@@ -9,9 +9,6 @@
 - name: installation of bbb and dependencies
   ansible.builtin.import_tasks: installation.yml
 
-- name: mongodb related fixups
-  ansible.builtin.import_tasks: mongodb.yml
-
 - name: configure nginx
   ansible.builtin.import_tasks: nginx.yml
 

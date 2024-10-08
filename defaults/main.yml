@@ -26,7 +26,6 @@ bbb_cpuschedule: true
 bbb_freeswitch_ipv6: true
 bbb_freeswitch_external_ip: "stun:{{ (bbb_stun_servers | first).server }}"
 bbb_system_locale: en_US.UTF-8
-bbb_mongodb_tempfssize: "512m"
 bbb_version: "3.0.0"
 bbb_repo_version: "230"
 
@@ -242,20 +241,10 @@ bbb_end_when_no_moderator_in_minutes: 5
 
 bbb_java_version: "{{ bbb_java_version_table[ansible_distribution_version | replace('.', '_')] }}"
 bbb_java_version_table:
-  "18_04": 8
-  "20_04": 17
   "22_04": 17
 
 bbb_nodejs_version: "{{ bbb_nodejs_version_table[ansible_distribution_version | replace('.', '_')] }}"
 bbb_nodejs_version_table:
-  "18_04": 12
-  "20_04": 18
   "22_04": 18
-
-bbb_mongodb_version: "{{ bbb_mongodb_version_table[ansible_distribution_version | replace('.', '_')] }}"
-bbb_mongodb_version_table:
-  "18_04": 4.2
-  "20_04": 4.4
-  "22_04": 6.0
 
 bbb_unified_turn: true
