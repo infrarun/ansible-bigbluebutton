@@ -19,7 +19,7 @@
   become: true
   ansible.builtin.template:
     src: nginx/bbb-html5.nginx
-    dest: /usr/share/bigbluebutton/nginx/bbb-html5.nginx
+    dest: /usr/share/bigbluebutton/nginx/bbb-html5.nginx.static
     mode: 0644
   notify: reload nginx
 

@@ -67,12 +67,6 @@
     name: mongod
     state: restarted
 
-- name: restart bbb-html5
-  become: true
-  ansible.builtin.systemd:
-    name: bbb-html5
-    state: restarted
-
 - name: restart bbb-web
   become: true
   ansible.builtin.systemd:
