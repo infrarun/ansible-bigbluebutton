@@ -1,7 +1,7 @@
 # running in production (static assets)
 location {{ bbb_html5client_prefix }}/html5client {
   gzip_static on;
-  alias /usr/share/bigbluebutton/html5-client/;
+  alias /usr/share/bigbluebutton/html5-client;
   index index.html;
   try_files $uri $uri/ =404;
 }
