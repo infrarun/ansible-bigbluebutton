@@ -3,7 +3,7 @@
 - name: install dependencies
   become: true
   ansible.builtin.apt:
-    name: ["language-pack-en", "software-properties-common", "mongodb-org", "nodejs", "containerd", "openjdk-{{ bbb_java_version }}-jre-headless"]
+    name: ["language-pack-en", "software-properties-common", "nodejs", "containerd", "openjdk-{{ bbb_java_version }}-jre-headless"]
     update_cache: true
 
 - name: set version of java to use
