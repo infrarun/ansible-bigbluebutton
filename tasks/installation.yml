@@ -16,7 +16,7 @@
 - name: install bbb
   become: true
   apt:
-    name: ["bigbluebutton"]
+    name: ["bigbluebutton", "bbb-playback-video"]
 
 - name: install extra or updated packages
   become: true
