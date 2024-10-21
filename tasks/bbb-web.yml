@@ -10,6 +10,13 @@
     follow: false
   notify: restart bbb-web
 
+- name: Create bbb-web service override directory
+  become: true
+  file:
+    state: directory
+    path: /etc/systemd/system/bbb-web.service.d/
+    mode: "0755"
+
 - name: Deploy bbb-web service override configuration
   become: true
   template:
