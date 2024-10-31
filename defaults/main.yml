@@ -71,6 +71,7 @@ bbb_webrtc_sfu_config:
     esl_password: "{{ bbb_freeswitch_socket_password }}"
   log:
     level: warn
+    stdout: true
     file: false
 
 bbb_meteor:
