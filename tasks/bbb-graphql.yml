@@ -1,8 +1,17 @@
 ---
+- name: configure bbb-graphql environment files
+  become: true
+  ansible.builtin.template:
+    src: bbb-graphql/bbb-graphql-server.env
+    dest: /etc/default/bbb-graphql-server
+    mode: 0644
+  when: bbb_cluster_proxy_host | length > 0
+  notify: restart bbb-graphql-server
 - name: configure bbb-graphql-middleware settings
   become: true
   ansible.builtin.template:
-    src: bbb-graphql-middleware
-    dest: /etc/default/bbb-graphql-middleware
+    src: bbb-graphql/bbb-graphql-middleware.yml
+    dest: /etc/bigbluebutton/bbb-graphql-middleware.yml
     mode: 0644
+  when: bbb_cluster_proxy_host | length > 0
   notify: restart bbb-graphql-middleware
