@@ -4,6 +4,11 @@
   ansible.builtin.systemd:
     daemon_reload: true
 
+- name: run dehydrated deploy hook
+  become: true
+  ansible.builtin.command: "/etc/dehydrated/hook.sh deploy_cert {{ item.name }} /var/lib/dehydrated/certs/{{ item.name }}/privkey.pem /var/lib/dehydrated/certs/{{ item.name }}/cert.pem /var/lib/dehydrated/certs/{{ item.name }}/fullchain.pem /var/lib/dehydrated/certs/{{ item.name }}/chain.pem"
+  loop: "{{ dehydrated__domain }}"
+
 - name: reload haproxy
   become: true
   ansible.builtin.systemd:
@@ -130,8 +135,3 @@
 - name: update grub
   become: true
   ansible.builtin.command: update-grub
-
-- name: run dehydrated deploy hook
-  become: true
-  ansible.builtin.command: "/etc/dehydrated/hook.sh deploy_cert {{ item.name }} /var/lib/dehydrated/certs/{{ item.name }}/privkey.pem /var/lib/dehydrated/certs/{{ item.name }}/cert.pem /var/lib/dehydrated/certs/{{ item.name }}/fullchain.pem /var/lib/dehydrated/certs/{{ item.name }}/chain.pem"
-  loop: "{{ dehydrated__domain }}"

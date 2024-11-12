@@ -1,25 +1,17 @@
 ---
-
-- name: add repository keys
+- name: Download and install repository keys
   become: true
-  ansible.builtin.apt_key:
-    url: "{{ item.url }}"
-    id: "{{ item.id }}"
-  loop:
-    - url: "https://ubuntu.bigbluebutton.org/repo/bigbluebutton.asc"
-      id: "770C4267C5E63474D171B60937B5DD5EFAB46452"
-    - url: "https://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x1655A0AB68576280"
-      id: "9FD3B784BC1C6FC31A8A0A1C1655A0AB68576280"
+  ansible.builtin.get_url:
+    url: "{{ item.key_url }}"
+    dest: "{{ bbb_signed_by_dir }}/{{ item.key_file }}"
+    mode: '0644'
+  loop: "{{ bbb_repositories | selectattr('key_url', 'defined') }}"
 
-- ansible.builtin.set_fact:
-    adr: "{{ ansible_distribution_release | lower }}"
-
-- name: add repositories
+- name: Add repositories with dedicated key files
   become: true
   ansible.builtin.apt_repository:
-    repo: "{{ item }}"
-  with_items:
-    - "deb https://ubuntu.bigbluebutton.org/{{ adr }}-{{ bbb_repo_version }}/ bigbluebutton-{{ adr }} main"
-    - "deb https://deb.nodesource.com/node_{{ bbb_nodejs_version }}.x {{ adr }} main"
-    - "ppa:bigbluebutton/support"
-    - "ppa:rmescandon/yq"
+    repo: "{{ item.repo }}"
+    filename: "{{ item.filename | default(item.name) }}"
+    validate_certs: false
+    update_cache: true
+  loop: "{{ bbb_repositories }}"

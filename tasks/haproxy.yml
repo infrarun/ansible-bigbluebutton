@@ -22,7 +22,9 @@
     dest: /etc/dehydrated/hooks.d/deploy-cert-haproxy
     group: root
     mode: 0750
-  notify: run dehydrated deploy hook
+  notify: 
+    - run dehydrated deploy hook
+    - reload haproxy
 
 - name: ensure haproxy is enabled to start at boot
   become: true
