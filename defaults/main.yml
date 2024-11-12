@@ -15,6 +15,29 @@ bbb_turn_servers:
 bbb_uid: 995
 bbb_gid: 996
 
+bbb_adr: "{{ ansible_distribution_release | lower }}"
+bbb_signed_by_dir: "/etc/apt/keyrings"
+
+bbb_repositories:
+  - name: bigbluebutton
+    repo: "deb [signed-by={{ bbb_signed_by_dir }}/bigbluebutton-archive-keyring.asc] https://ubuntu.bigbluebutton.org/{{ bbb_adr }}-{{ bbb_repo_version }}/ bigbluebutton-{{ bbb_adr }} main"
+    key_url: "https://ubuntu.bigbluebutton.org/repo/bigbluebutton.asc"
+    key_file: "bigbluebutton-archive-keyring.asc"
+  - name: nodesource
+    repo: "deb [signed-by={{ bbb_signed_by_dir }}/nodesource-archive-keyring.asc] https://deb.nodesource.com/node_{{ bbb_nodejs_version }}.x {{ bbb_adr }} main"
+    key_url: "https://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x1655A0AB68576280"
+    key_file: "nodesource-archive-keyring.asc"
+  - name: postgres
+    repo: "deb [signed-by={{ bbb_signed_by_dir}}/postgres.asc] http://apt.postgresql.org/pub/repos/apt {{ bbb_adr }}-pgdg main"
+    key_url: "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
+    key_file: "postgres.asc"
+  - name: bigbluebutton-coturn-support
+    repo: "ppa:bigbluebutton/support"
+    filename: "bigbluebutton-coturn-support"
+  - name: yq
+    repo: "ppa:rmescandon/yq"
+    filename: "rmescandon-yq"
+
 bbb_secret: "{{ bbb_api_key }}"
 bbb_webhooks_enable: false
 bbb_allow_mail_notifications: true
