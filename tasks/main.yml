@@ -3,9 +3,6 @@
 - name: add ansible specific repositorys
   ansible.builtin.import_tasks: repositories.yml
 
-- name: create bbb user and group for consistent uid/gid
-  ansible.builtin.import_tasks: user.yml
-
 - name: installation of bbb and dependencies
   ansible.builtin.import_tasks: installation.yml
 
