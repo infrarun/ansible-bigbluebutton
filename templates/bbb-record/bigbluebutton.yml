@@ -54,8 +54,10 @@ steps:
   captions:
     - "process:presentation"
     - "process:video"
+    - "process:podcast"
   "process:presentation": "publish:presentation"
   "process:video": "publish:video"
+  "process:podcast": "publish:podcast"
 # For PRODUCTION
 log_dir: /var/log/bigbluebutton
 events_dir: /var/bigbluebutton/events

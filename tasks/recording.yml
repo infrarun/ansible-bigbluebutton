@@ -10,6 +10,7 @@
   loop:
     - bigbluebutton.yml
     - presentation.yml
+    - podcast.yml
   notify:
     - restart bbb-rap-caption-inbox
     - restart bbb-rap-resque-worker

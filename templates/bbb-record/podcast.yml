@@ -1,0 +1,2 @@
+publish_dir: /var/bigbluebutton/published/podcast
+playback_host: "{{ bbb_recordings_playback_host }}"
