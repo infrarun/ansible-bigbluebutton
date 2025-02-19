@@ -1,6 +1,5 @@
 ---
 - import_tasks: repositories.yml
-- import_tasks: user.yml
 - import_tasks: installation.yml
 - import_tasks: mongodb.yml
 - import_tasks: nginx.yml
