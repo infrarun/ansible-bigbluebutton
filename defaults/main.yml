@@ -27,6 +27,10 @@ bbb_repositories:
     repo: "deb [signed-by={{ bbb_signed_by_dir }}/nodesource-archive-keyring.asc] https://deb.nodesource.com/node_{{ bbb_nodejs_version }}.x {{ bbb_adr }} main"
     key_url: "https://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x1655A0AB68576280"
     key_file: "nodesource-archive-keyring.asc"
+  - name: docker 
+    repo: "deb [signed-by={{ bbb_signed_by_dir }}/docker-archive-keyring.asc] https://download.docker.com/linux/ubuntu {{ bbb_adr }} stable"
+    key_url: "https://download.docker.com/linux/ubuntu/gpg"
+    key_file: "docker-archive-keyring.asc"
   - name: postgres
     repo: "deb [signed-by={{ bbb_signed_by_dir}}/postgres.asc] http://apt.postgresql.org/pub/repos/apt {{ bbb_adr }}-pgdg main"
     key_url: "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
