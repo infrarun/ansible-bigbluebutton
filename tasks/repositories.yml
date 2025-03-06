@@ -6,6 +6,7 @@
     dest: "{{ bbb_signed_by_dir }}/{{ item.key_file }}"
     mode: '0644'
   loop: "{{ bbb_repositories | selectattr('key_url', 'defined') }}"
+  ignore_errors: "{{ ansible_check_mode }}"
 
 - name: Add repositories with dedicated key files
   become: true
@@ -15,3 +16,4 @@
     validate_certs: false
     update_cache: true
   loop: "{{ bbb_repositories }}"
+  ignore_errors: "{{ ansible_check_mode }}"
