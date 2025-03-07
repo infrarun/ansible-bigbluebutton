@@ -121,6 +121,7 @@ bbb_meteor:
         application:
           directLeaveButton: true
       customHeartbeat: true
+      userSettingsStorage: local
     chat:
       bufferChatInsertsMs: 100
       typingIndicator:
