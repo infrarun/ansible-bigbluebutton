@@ -21,6 +21,29 @@
       - bbb-playback-video
       - bbb-playback-podcast
 
+- name: Erase auto-generated postgres database cluster
+  become: true
+  ansible.builtin.command:
+    cmd: pg_dropcluster --stop 14 main
+    removes: /var/lib/postgres/14/main
+
+- name: Copy custom postgresql systemd units
+  become: true
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: /etc/systemd/system
+    mode: "644"
+  loop:
+    - var-lib-postgresql.mount
+    - postgresql-cluster-init.service
+
+- name: Enable Postgresql cluster initialization service
+  become: true
+  ansible.builtin.systemd:
+    name: postgresql-cluster-init.service
+    state: started
+    enabled: true
+
 - name: install extra or updated packages
   become: true
   ansible.builtin.apt:

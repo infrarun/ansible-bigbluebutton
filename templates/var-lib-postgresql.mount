@@ -1,0 +1,4 @@
+[Mount]
+What=tmpfs
+Type=tmpfs
+Options=uid=postgres,gid=postgres,mode=755
