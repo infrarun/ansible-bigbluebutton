@@ -1,4 +1,10 @@
 #!/bin/bash
 
 conf_id="$1"
-mongo "mongodb://127.0.1.1/meteor" --eval "db.meetings.count({\"voiceProp.telVoice\": \"${conf_id}\"}) > 0" --quiet
+export PGPASSWORD=bbb_core
+count=$(psql -U bbb_core bbb_graphql -h 127.0.0.1 -w --csv -t -c "SELECT count(\"meeting_voice\".\"voiceConf\") FROM meeting_voice INNER JOIN meeting ON \"meeting\".\"meetingId\" = \"meeting_voice\".\"meetingId\" WHERE \"meeting\".\"ended\" = false AND \"meeting_voice\".\"voiceConf\" = '${conf_id}';")
+if [[ $count -eq 1 ]]; then
+        echo "true";
+else
+        echo "false";
+fi
