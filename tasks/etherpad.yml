@@ -1,10 +1,13 @@
 ---
 
-- name: add bbb-export-annotations.json config file for etherpad
+- name: add config files for etherpad
   become: true
   ansible.builtin.template:
-    src: bbb-export-annotations.json
-    dest: /etc/bigbluebutton/bbb-export-annotations.json
+    src: "{{ item }}" 
+    dest: "/etc/bigbluebutton/{{ item }}"
     mode: 0644
+  loop:
+     - etherpad.json
+     - bbb-export-annotations.json
   notify:
     - restart etherpad
