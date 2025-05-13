@@ -1,0 +1,5 @@
+{
+        "cluster_proxies": [
+                "https://{{ bbb_cluster_proxy_host }}"
+        ]
+}
