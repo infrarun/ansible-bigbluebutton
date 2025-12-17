@@ -16,31 +16,30 @@ bbb_uid: 995
 bbb_gid: 996
 
 bbb_adr: "{{ ansible_distribution_release | lower }}"
-bbb_signed_by_dir: "/etc/apt/keyrings"
 
 bbb_repositories:
   - name: bigbluebutton
-    repo: "deb [signed-by={{ bbb_signed_by_dir }}/bigbluebutton-archive-keyring.asc] https://ubuntu.bigbluebutton.org/{{ bbb_adr }}-{{ bbb_repo_version }}/ bigbluebutton-{{ bbb_adr }} main"
+    uri: "https://ubuntu.bigbluebutton.org/{{ bbb_adr }}-{{ bbb_repo_version }}/"
+    suites: "bigbluebutton-{{ bbb_adr }}"
     key_url: "https://ubuntu.bigbluebutton.org/repo/bigbluebutton.asc"
-    key_file: "bigbluebutton-archive-keyring.asc"
   - name: nodesource
-    repo: "deb [signed-by={{ bbb_signed_by_dir }}/nodesource-archive-keyring.asc] https://deb.nodesource.com/node_{{ bbb_nodejs_version }}.x {{ bbb_adr }} main"
-    key_url: "https://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x1655A0AB68576280"
-    key_file: "nodesource-archive-keyring.asc"
-  - name: docker 
-    repo: "deb [signed-by={{ bbb_signed_by_dir }}/docker-archive-keyring.asc] https://download.docker.com/linux/ubuntu {{ bbb_adr }} stable"
+    uri: "https://deb.nodesource.com/node_{{ bbb_nodejs_version }}.x"
+    suites: "nodistro"
+    key_url: "https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key"
+  - name: docker
+    uri: "https://download.docker.com/linux/ubuntu"
+    components: stable
     key_url: "https://download.docker.com/linux/ubuntu/gpg"
-    key_file: "docker-archive-keyring.asc"
   - name: postgres
-    repo: "deb [signed-by={{ bbb_signed_by_dir}}/postgres.asc] http://apt.postgresql.org/pub/repos/apt {{ bbb_adr }}-pgdg main"
+    uri: "http://apt.postgresql.org/pub/repos/apt"
+    suites: "{{ bbb_adr }}-pgdg"
     key_url: "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
-    key_file: "postgres.asc"
   - name: bigbluebutton-coturn-support
-    repo: "ppa:bigbluebutton/support"
-    filename: "bigbluebutton-coturn-support"
+    uri: "https://ppa.launchpadcontent.net/bigbluebutton/support/ubuntu"
+    key_url: "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x36a9ca9512e5f0a4be549acf2e1b01d0e95b94bc"
   - name: yq
-    repo: "ppa:rmescandon/yq"
-    filename: "rmescandon-yq"
+    uri: "https://ppa.launchpadcontent.net/rmescandon/yq/ubuntu"
+    key_url: "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x9a2d61f6bb03ced7522b8e7d6657dbe0cc86bb64"
 
 bbb_secret: "{{ bbb_api_key }}"
 bbb_webhooks_enable: false
@@ -325,6 +324,6 @@ bbb_java_version_table:
 
 bbb_nodejs_version: "{{ bbb_nodejs_version_table[ansible_distribution_version | replace('.', '_')] }}"
 bbb_nodejs_version_table:
-  "22_04": 18
+  "22_04": 22
 
 bbb_unified_turn: false

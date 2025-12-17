@@ -1,19 +1,26 @@
 ---
-- name: Download and install repository keys
-  become: true
-  ansible.builtin.get_url:
-    url: "{{ item.key_url }}"
-    dest: "{{ bbb_signed_by_dir }}/{{ item.key_file }}"
-    mode: '0644'
-  loop: "{{ bbb_repositories | selectattr('key_url', 'defined') }}"
-  ignore_errors: "{{ ansible_check_mode }}"
 
-- name: Add repositories with dedicated key files
+- name: List old package sources
+  ansible.builtin.find:
+    paths: /etc/apt/sources.list.d
+    patterns: "*.list"
+  register: _bbb_package_sources
+
+- name: Clean up old package sources
   become: true
-  ansible.builtin.apt_repository:
-    repo: "{{ item.repo }}"
-    filename: "{{ item.filename | default(item.name) }}"
-    validate_certs: false
-    update_cache: true
-  loop: "{{ bbb_repositories }}"
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop: "{{ _bbb_package_sources.files | map(attribute='path') }}"
+
+- name: Add signed package repositories
+  become: true
+  ansible.builtin.deb822_repository:
+    types: deb
+    name: "{{ item.name }}"
+    uris: "{{ item.uri }}"
+    suites: "{{ item.suites | default(bbb_adr) }}"
+    components: "{{ item.components | default('main') }}"
+    signed_by: "{{ item.key_url }}"
   ignore_errors: "{{ ansible_check_mode }}"
+  loop: "{{ bbb_repositories }}"
