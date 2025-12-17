@@ -27,7 +27,7 @@
     - reload systemd
     - restart bbb-web
 
-- name: configure bbb-web application settings
+- name: Configure bbb-web application settings
   become: true
   ansible.builtin.template:
     src: bbb-web/logback.xml
@@ -35,7 +35,7 @@
     mode: 0644
   notify: restart bbb-web
 
-- name: template bbb-web defaults
+- name: Template bbb-web defaults
   become: true
   ansible.builtin.template:
     src: bbb-web/defaults
@@ -43,7 +43,7 @@
     mode: 0644
   notify: restart bbb-web
 
-- name: template bbb-web.properties
+- name: Template bbb-web.properties
   become: true
   ansible.builtin.template:
     src: bbb-web/bbb-web.properties
@@ -52,3 +52,12 @@
     group: root
     mode: 0600
   notify: restart bbb-web
+
+- name: Copy ImageMagick policy file
+  become: true
+  ansible.builtin.copy:
+    src: policy.xml
+    dest: /etc/ImageMagick-6/policy.xml
+    owner: root
+    group: root
+    mode: 0664

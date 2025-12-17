@@ -256,6 +256,41 @@ bbb_meteor_cluster:
       sip_ws_host: '{{ bbb_hostname }}'
     presentation:
       uploadEndpoint: 'https://{{ bbb_hostname }}/bigbluebutton/presentation/upload'
+      uploadValidMimeTypes:
+        - extension: .pdf
+          mime: application/pdf
+        - extension: .doc
+          mime: application/msword
+        - extension: .docx
+          mime: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+        - extension: .xls
+          mime: application/vnd.ms-excel
+        - extension: .xlsx
+          mime: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+        - extension: .ppt
+          mime: application/vnd.ms-powerpoint
+        - extension: .pptx
+          mime: application/vnd.openxmlformats-officedocument.presentationml.presentation
+        - extension: .txt
+          mime: text/plain
+        - extension: .rtf
+          mime: application/rtf
+        - extension: .odt
+          mime: application/vnd.oasis.opendocument.text
+        - extension: .ods
+          mime: application/vnd.oasis.opendocument.spreadsheet
+        - extension: .odp
+          mime: application/vnd.oasis.opendocument.presentation
+        - extension: .odg
+          mime: application/vnd.oasis.opendocument.graphics
+        - extension: .jpg
+          mime: image/jpeg
+        - extension: .jpeg
+          mime: image/jpeg
+        - extension: .png
+          mime: image/png
+        - extension: .webp
+          mime: image/webp
 
 bbb_html5_backend_processes: 1
 bbb_html5_frontend_processes: 1
