@@ -19,7 +19,7 @@ bbb_adr: "{{ ansible_distribution_release | lower }}"
 
 bbb_repositories:
   - name: bigbluebutton
-    uri: "https://ubuntu.bigbluebutton.org/{{ bbb_adr }}-{{ bbb_repo_version }}/"
+    uri: "https://ftp.gwdg.de/pub/linux/misc/bigbluebutton/ubuntu/{{ bbb_adr }}-{{ bbb_repo_version }}/"
     suites: "bigbluebutton-{{ bbb_adr }}"
     key_url: "https://ubuntu.bigbluebutton.org/repo/bigbluebutton.asc"
   - name: nodesource
